@@ -29,7 +29,7 @@
                 "autoUpgradeMinorVersion": true,
                 "settings": {
                     "fileUris": [
-                        ""
+                        "https://raw.githubusercontent.com/CloudDirect/ARMLab/master/scripts/script1.ps1"
                     ]
                 },
                 "protectedSettings": {}
