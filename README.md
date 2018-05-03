@@ -1,11 +1,7 @@
 # ARMLab
 
-Rich was here.
+### Working area for ARM template development.
 
-And Peter
+### Team
 
-And Luke
-
-And Jan
-
-Working area for ARM template development.
+Rich, Luke, Jan, Steve, Peter
