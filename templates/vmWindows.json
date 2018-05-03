@@ -75,12 +75,12 @@
         "pipObject": {
             "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('pipName'))]"
         },
-        "vnetID": "[resourceId('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]",
+        "vnetID": "[resourceId(parameters('vnetResourceGroup'), 'Microsoft.Network/virtualNetworks/', parameters('vnetName'))]",
         "subnetRef": "[concat(variables('vnetID'), '/subnets/', parameters('subnetName'))]",
         "nicName": "[concat(parameters('vmName'), '-nic')]",
         "pipName": "[concat(parameters('vmName'), '-pip')]",
         "pipType": "Dynamic",
-        "vmSize": "Standard_B1s",
+        "vmSize": "Standard_DS2_v2",
         "imagePublisher": "MicrosoftWindowsServer",
         "imageOffer": "WindowsServer",
         "storageAccountType": "Standard_LRS",
@@ -117,8 +117,7 @@
             "apiVersion": "2017-06-01",
             "location": "[resourceGroup().location]",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/publicIPAddresses/', variables('pipName'))]",
-                "[variables('vnetID')]"
+                "[resourceId('Microsoft.Network/publicIPAddresses/', variables('pipName'))]"
             ],
             "properties": {
                 "ipConfigurations": [
@@ -128,8 +127,7 @@
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIPAddress": "[if(variables('pip?'), variables('pipObject'), json('null'))]",
                             "subnet": {
-                                "id": "[variables('subnetRef')]",
-                                "resourceGroup": "[parameters('vnetResourceGroup')]"
+                                "id": "[variables('subnetRef')]"
                             }
                         }
                     }
