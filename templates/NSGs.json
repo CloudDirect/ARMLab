@@ -28,7 +28,7 @@
         {
             "apiVersion": "2015-06-15",
             "type": "Microsoft.Network/networkSecurityGroups",
-            "name": "AllowSSH",
+            "name": "AllowHttps",
             "location": "[resourceGroup().location]",
             "properties": {
                 "securityRules": [
@@ -51,7 +51,7 @@
         {
             "apiVersion": "2015-06-15",
             "type": "Microsoft.Network/networkSecurityGroups",
-            "name": "AllowSSH",
+            "name": "AllowSQLServer",
             "location": "[resourceGroup().location]",
             "properties": {
                 "securityRules": [
@@ -74,7 +74,7 @@
         {
             "apiVersion": "2015-06-15",
             "type": "Microsoft.Network/networkSecurityGroups",
-            "name": "AllowSSH",
+            "name": "AllowHttp",
             "location": "[resourceGroup().location]",
             "properties": {
                 "securityRules": [
@@ -117,5 +117,6 @@
                 ]
             }
         }
-    ]
+    ],
+    "outputs": {}
 }
