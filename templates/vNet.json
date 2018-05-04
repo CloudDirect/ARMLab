@@ -41,7 +41,7 @@
             "location": "[resourceGroup().location]",
             "properties": {
                 "addressSpace": {
-                    "addressPrefixes": "[parameters('vNet').addressPrefixes)]"
+                    "addressPrefixes": "[parameters('vNet').addressPrefixes]"
                 },
                 "copy": [
                     {
