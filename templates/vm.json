@@ -115,7 +115,6 @@
         "ciOwnerTag": {
             "type": "string",
             "minLength": 1,
-            "defaultValue": "unspecified",
             "metadata": {
                 "description": "Configuration Item Owner tag for the Virtual Machine."
             }
@@ -123,7 +122,6 @@
         "appIDTag": {
             "type": "string",
             "minLength": 1,
-            "defaultValue": "unspecified",
             "metadata": {
                 "description": "Application ID tag for the Virtual Machine."
             }
@@ -131,7 +129,6 @@
         "orgIDTag": {
             "type": "string",
             "minLength": 1,
-            "defaultValue": "unspecified",
             "metadata": {
                 "description": "Organisation ID tag for the Virtual Machine."
             }
@@ -139,7 +136,6 @@
         "envTag": {
             "type": "string",
             "minLength": 1,
-            "defaultValue": "unspecified",
             "allowedValues": [
                 "dev",
                 "test",
