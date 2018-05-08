@@ -3,13 +3,16 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "osType": {
-            "value": "ubuntu"
+            "value": "windows"
+        },
+        "vmSize": {
+            "value": "medium"
         },
         "vnetResourceGroup": {
             "value": "network-prod-rg"
         },
         "vmName": {
-            "value": "ubuntu-vm10"
+            "value": "windows-vm10"
         },
         "ciOwnerTag": {
             "value": "Luke Fussell"
