@@ -1,0 +1,60 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "administratorLogin":{
+        "type":"string",
+        "minLength":1,
+        "maxLength":16
+      },
+      "administratorLoginPassword":{
+        "type":"securestring"
+      },
+      "location":{
+        "type":"string",
+        "defaultValue":"uksouth"
+      },
+      "serverName":{
+        "type":"string",
+        "minLength":2,
+        "maxLength":63
+      },
+      "skuName":{
+        "type":"string",
+        "allowedValues":[
+          "B_Gen5_1",
+          "B_Gen5_2",
+          "GP_Gen5_2",
+          "GP_Gen5_4",
+          "GP_Gen5_8"
+        ],
+        "defaultValue":"GP_Gen5_2"
+      },
+      "version":{
+        "type":"string",
+        "allowedValues":[
+          "5.6",
+          "5.7"
+        ],
+        "defaultValue":"5.7"
+      }
+    },
+    "resources": [
+      {
+        "name": "[parameters('serverName')]",
+        "type": "Microsoft.DBforPostgreSQL/servers",
+        "apiVersion": "2017-12-01",
+        "location": "[parameters('location')]",
+        "tags": {},
+        "properties": {
+          "version": "[parameters('version')]",
+          "administratorLogin": "[parameters('administratorLogin')]",
+          "administratorLoginPassword": "[parameters('administratorLoginPassword')]"
+        },
+        "sku": {
+          "name": "[parameters('skuName')]"
+        }
+      }
+    ],
+    "variables": {}
+  }
