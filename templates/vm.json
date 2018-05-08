@@ -19,7 +19,7 @@
             "metadata": {
                 "description": "Name for the virtual machine"
             },
-            "defaultValue": "myWindowsVm"
+            "defaultValue": "myVm"
         },
         "dnsLabelPrefix": {
             "type": "string",
@@ -39,7 +39,7 @@
             "metadata": {
                 "description": "T-shirt size for the virtual machine"
             }
-        }, 
+        },
         "windowsOSVersion": {
             "type": "string",
             "defaultValue": "2016-Datacenter",
@@ -55,25 +55,39 @@
         },
         "ubuntuOSVersion": {
             "type": "string",
-            "defaultValue": "16.04-LTS",
+            "defaultValue": "18.04-LTS",
             "allowedValues": [
-                "14.04-LTS",
+                "14.04.5-LTS",
                 "16.04-LTS",
-                "17.04",
-                "17.10"
+                "17.10",
+                "18.04-LTS"
             ],
             "metadata": {
                 "description": "The Ubuntu version for the VM. This will pick a fully patched image of this given Ubuntu version."
             }
         },
+        "redhatOSVersion": {
+            "type": "string",
+            "defaultValue": "7.4",
+            "allowedValues": [
+                "7.4",
+                "7.3",
+                "6.9",
+                "6.8"
+            ],
+            "metadata": {
+                "description": "The Red Hat version for the VM. This will pick a fully patched image of this given Red Hat version."
+            }
+        },
         "osType": {
-           "type": "string",
-           "allowedValues": [
-               "windows",
-               "ubuntu"
-           ],
-           "defaultValue": "windows",
-           "metadata": {
+            "type": "string",
+            "allowedValues": [
+                "windows",
+                "ubuntu",
+                "redhat"
+            ],
+            "defaultValue": "windows",
+            "metadata": {
                 "description": "High level control for OS type"
             }
         },
@@ -110,6 +124,12 @@
             "publisher": "Canonical",
             "offer": "UbuntuServer",
             "sku": "[parameters('ubuntuOSVersion')]",
+            "version": "latest"
+        },
+        "redhatImageReference": {
+            "publisher": "RedHat",
+            "offer": "RHEL",
+            "sku": "[parameters('redhatOSVersion')]",
             "version": "latest"
         },
         "imageReference": "[variables(concat(parameters('osType'), 'ImageReference'))]",
@@ -200,7 +220,7 @@
             ],
             "properties": {
                 "hardwareProfile": {
-                    "vmSize": "[variables('vm').size)]"
+                    "vmSize": "[variables('vm').size]"
                 },
                 "osProfile": {
                     "computerName": "[parameters('vmName')]",
@@ -243,6 +263,13 @@
         }
     ],
     "outputs": {
-        
+        "vm": {
+            "type": "object",
+            "value": "[variables('vm')]"
+        },
+        "image": {
+            "type": "object",
+            "value": "[variables('imageReference')]"
+        }
     }
 }
