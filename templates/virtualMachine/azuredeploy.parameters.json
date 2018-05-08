@@ -9,7 +9,7 @@
             "value": "network-prod-rg"
         },
         "vmName": {
-            "value": "ubuntu-vm10"
+            "value": "ubuntu-vm1"
         },
         "ciOwnerTag": {
             "value": "Luke Fussell"

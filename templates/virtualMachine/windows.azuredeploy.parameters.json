@@ -12,7 +12,7 @@
             "value": "network-prod-rg"
         },
         "vmName": {
-            "value": "windows-vm10"
+            "value": "windows-vm1"
         },
         "ciOwnerTag": {
             "value": "Luke Fussell"
