@@ -111,6 +111,44 @@
             "metadata": {
                 "description": "Resource group for the virtual network"
             }
+        },
+        "ciOwnerTag": {
+            "type": "string",
+            "minLength": 1,
+            "defaultValue": "unspecified",
+            "metadata": {
+                "description": "Configuration Item Owner tag for the Virtual Machine."
+            }
+        },
+        "appIDTag": {
+            "type": "string",
+            "minLength": 1,
+            "defaultValue": "unspecified",
+            "metadata": {
+                "description": "Application ID tag for the Virtual Machine."
+            }
+        },
+        "orgIDTag": {
+            "type": "string",
+            "minLength": 1,
+            "defaultValue": "unspecified",
+            "metadata": {
+                "description": "Organisation ID tag for the Virtual Machine."
+            }
+        },
+        "envTag": {
+            "type": "string",
+            "minLength": 1,
+            "defaultValue": "unspecified",
+            "allowedValues": [
+                "dev",
+                "test",
+                "prod",
+                "unspecified"
+            ],
+            "metadata": {
+                "description": "Environment tag for the Virtual Machine."
+            }
         }
     },
     "variables": {
@@ -191,6 +229,12 @@
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2017-06-01",
             "location": "[resourceGroup().location]",
+            "tags": {
+                "CiOwner": "[parameters('ciOwnerTag')]",
+                "appID": "[parameters('appIDTag')]",
+                "orgID": "[parameters('orgIDTag')]",
+                "env": "[parameters('envTag')]"
+            },
             "dependsOn": [
                 "[resourceId('Microsoft.Network/publicIPAddresses/', variables('pipName'))]"
             ],
@@ -214,6 +258,12 @@
             "type": "Microsoft.Compute/virtualMachines",
             "apiVersion": "2017-03-30",
             "location": "[resourceGroup().location]",
+            "tags": {
+                "CiOwner": "[parameters('ciOwnerTag')]",
+                "appID": "[parameters('appIDTag')]",
+                "orgID": "[parameters('orgIDTag')]",
+                "env": "[parameters('envTag')]"
+            },
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
                 "[resourceId('Microsoft.Network/networkInterfaces/', variables('nicName'))]"
