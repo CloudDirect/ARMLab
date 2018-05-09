@@ -671,7 +671,7 @@
             "location": "[parameters('location')]",
             "name": "[variables('AgentHealthAssessment').Name]",
             "type": "Microsoft.OperationsManagement/solutions",
-            "id": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.OperationsManagement/solutions/', variables('ApplicationInsights').Name)]",
+            "id": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.OperationsManagement/solutions/', variables('AgentHealthAssessment').Name)]",
             "dependsOn": [
               "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
             ],
@@ -690,7 +690,7 @@
             "location": "[parameters('location')]",
             "name": "[variables('AlertManagement').Name]",
             "type": "Microsoft.OperationsManagement/solutions",
-            "id": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.OperationsManagement/solutions/', variables('ApplicationInsights').Name)]",
+            "id": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.OperationsManagement/solutions/', variables('AlertManagement').Name)]",
             "dependsOn": [
               "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
             ],
