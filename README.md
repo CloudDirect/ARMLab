@@ -4,4 +4,4 @@
 
 ### Team
 
-Rich, Luke, Jan, Steve, Peter
+Rich, Luke, Jan, Steve, Peter, Paul
