@@ -42,7 +42,6 @@
         ]
       }
     },
-   
     "variables": {
       "Updates": {
         "Name": "[Concat('Updates', '(', parameters('workspaceName'), ')')]",
@@ -1305,11 +1304,11 @@
                         }
                     }
                 }
-            ]
+              ]
           }
-        ]
+          ]
       }
-     ],
+      ],
     "outputs": {
       "workspaceName": {
         "type": "string",
