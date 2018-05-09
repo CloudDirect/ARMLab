@@ -85,7 +85,7 @@
         "location": "[parameters('location')]",
         "properties": {
           "sku": {
-            "Name": "[parameters('serviceTier')]"
+          "Name": "[parameters('serviceTier')]"
           },
       "retentionInDays": "[parameters('dataRetention')]"
         },
@@ -165,7 +165,7 @@
               ]
           }
           },
-                  {
+          {
             "apiVersion": "2015-11-01-preview",
             "type": "datasources",
             "name": "sampleWindowsEvent4",
@@ -260,7 +260,7 @@
               "counterName": "Free Space"
             }
           },
-           {
+          {
             "apiVersion": "2015-11-01-preview",
             "type": "datasources",
             "name": "sampleWindowsPerfCounter6",
@@ -365,7 +365,7 @@
               "counterName": "Free Megabytes"
             }
           },
-           {
+          {
             "apiVersion": "2015-11-01-preview",
             "type": "datasources",
             "name": "sampleWindowsPerfCounter13",
@@ -380,7 +380,7 @@
               "counterName": "Bytes Received/sec"
             }
           },
-           {
+          {
             "apiVersion": "2015-11-01-preview",
             "type": "datasources",
             "name": "sampleWindowsPerfCounter14",
@@ -395,7 +395,7 @@
               "counterName": "Bytes Sent/sec"
             }
           },
-                   {
+          {
             "apiVersion": "2015-11-01-preview",
             "type": "datasources",
             "name": "sampleWindowsPerfCounter15",
@@ -497,7 +497,7 @@
               "intervalSeconds": 10
             }
           },
-                  {
+          {
             "apiVersion": "2015-11-01-preview",
             "type": "datasources",
             "name": "sampleLinuxPerf2",
@@ -528,7 +528,8 @@
               "state": "Enabled"
             }
           },
-          {"apiVersion": "2015-11-01-preview",
+          {
+            "apiVersion": "2015-11-01-preview",
             "location": "[parameters('location')]",
             "name": "[variables('Updates').Name]",
             "type": "Microsoft.OperationsManagement/solutions",
@@ -584,7 +585,7 @@
               "promotionCode": ""
             }
           },
-            {
+          {
             "apiVersion": "2015-11-01-preview",
             "location": "[parameters('location')]",
             "name": "[variables('Security').Name]",
@@ -602,8 +603,8 @@
               "product": "[Concat('OMSGallery/', variables('Security').GalleryName)]",
               "promotionCode": ""
             }
-            },
-            {
+          },
+          {
             "apiVersion": "2015-11-01-preview",
             "location": "[parameters('location')]",
             "name": "[variables('Office365').Name]",
@@ -1305,7 +1306,7 @@
                     }
                 }
             ]
-        }
+          }
         ]
       }
      ],
