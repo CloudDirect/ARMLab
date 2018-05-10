@@ -2,7 +2,7 @@
 
 The service consits an SQL server and SQL databases. The SQL server does not determine the performance od the databases running in it. The SQL server is just a logical unit that dictates the admin user credentials for all of the databases and the login IP and hostname. The performance of the databases can be set individually. The performance of the databases is defined in Database Transfer Units (DTU).
 
-[![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloudDirect%2FARMLab%2Fmaster%2Ftemplates%2FazureBackupVault%2Fazuredeploy.json)
+[![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloudDirect%2FARMLab%2Fmaster%2Ftemplates%2FAzureSQL%2Fazuredeploy.json)
 
 ## Azure CLI deployment
 
