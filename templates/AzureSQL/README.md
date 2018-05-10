@@ -28,7 +28,7 @@ The service level objective parameter determines the performance of the database
 az sql db list-editions --location <location> --query '[].supportedServiceLevelObjectives[].name'
 ```
 
-### Add firewall rule to the server
+### Add firewall rule to the SQL server
 
 ```bash
 az sql server firewall-rule create --resource-group <resourceGroupName> --server <serverName> \

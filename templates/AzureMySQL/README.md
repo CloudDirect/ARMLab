@@ -8,7 +8,7 @@ The MySQL platform service follows the traditional model. Users can create a ser
 
 The `az mysql server` command is used with parameters to manage a MySQL server. The `az mysql db` handles the databases on the servers.
 
-### SQL server creation
+### MySQL server creation
 
 ```bash
 az mysql server create --resource-group <resourceGroupName> --name <serverName> \
@@ -16,13 +16,13 @@ az mysql server create --resource-group <resourceGroupName> --name <serverName> 
 --sku-name <skuName> --version <version>
 ```
 
-### Create a database in an SQL server
+### Create a database in a MySQL server
 
 ```bash
 az mysql db create -g <resourceGroupName> -s <serverName> -n <dbName>
 ```
 
-### Add firewall rule to the server
+### Add firewall rule to the MySQL server
 
 ```bash
 az mysql server firewall-rule create --resource-group <resourceGroupName> --server-name <serverName> \
