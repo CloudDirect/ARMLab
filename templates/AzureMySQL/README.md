@@ -6,11 +6,14 @@ The MySQL platform service follows the traditional model. Users can create a ser
 
 ## Azure CLI deployment
 
-The `az mysql server` command is used with parameters to create an SQL server.
+The `az mysql server` command is used with parameters to manage a MySQL server. The `az mysql db` handles the databases on the servers.
 
 ### SQL server creation
 
 ```bash
+az mysql server create --resource-group <resourceGroupName> --name <serverName> \
+--location <location> --admin-user <adminUsername> --admin-password <adminPassword> \
+--sku-name <skuName> --version <version>
 ```
 
 ### Create a database in an SQL server
@@ -19,8 +22,5 @@ The `az mysql server` command is used with parameters to create an SQL server.
 az mysql db create -g <resourceGroupName> -s <serverName> -n <dbName>
 ```
 
-## Create MySQL databases within the Azure Database for MySQL server
+## Template deployment
 
-```bash
-az mysql db create -g data-prod-rg -s mysql-prod-123 -n mysqldb1
-```
