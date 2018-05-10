@@ -1,0 +1,115 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "sqlServerName": {
+            "type": "string",
+            "metadata": {
+                "description": "Name of the SQL server"
+            }
+        },
+        "sqlAdministratorLogin": {
+            "type": "string",
+            "metadata": {
+                "description": "The admin user of the SQL Server"
+            }
+        },
+        "sqlAdministratorLoginPassword": {
+            "type": "securestring",
+            "metadata": {
+                "description": "The password of the admin user of the SQL Server"
+            }
+        },
+        "sqlDatabaseName": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of the database"
+            }
+        },
+        "sqlDatabaseServiceObjective": {
+            "type": "string",
+            "allowedValues": [
+                "S0",
+                "S1",
+                "S2",
+                "S3",
+                "S4",
+                "S6",
+                "S7",
+                "S9",
+                "S12",
+                "P1",
+                "P2",
+                "P3",
+                "P4",
+                "P6",
+                "P11",
+                "P15"
+            ],
+            "metadata": {
+                "description": "The size od the database"
+            }
+        },
+        "firewallIPRangeStart": {
+            "type": "string",
+            "metadata": {
+                "description": "Start of the allowed IP range"
+            }
+        },
+        "firewallIPRangeEnd": {
+            "type": "string",
+            "metadata": {
+                "description": "End of the allowed IP range"
+            }
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "name": "[parameters('sqlserverName')]",
+            "type": "Microsoft.Sql/servers",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "displayName": "SqlServer"
+            },
+            "apiVersion": "2014-04-01",
+            "properties": {
+                "administratorLogin": "[parameters('sqlAdministratorLogin')]",
+                "administratorLoginPassword": "[parameters('sqlAdministratorLoginPassword')]",
+                "version": "12.0"
+            },
+            "resources": [
+                {
+                    "name": "[parameters('sqlDatabaseName')]",
+                    "type": "databases",
+                    "location": "[resourceGroup().location]",
+                    "tags": {
+                        "displayName": "Database"
+                    },
+                    "apiVersion": "2014-04-01",
+                    "dependsOn": [
+                        "[parameters('sqlserverName')]"
+                    ],
+                    "properties": {
+                        "collation": "SQL_Latin1_General_CP1_CI_AS",
+                        "requestedServiceObjectiveName": "[parameters('sqlDatabaseServiceObjective')]"
+                    }
+                },
+                {
+                    "type": "firewallRules",
+                    "apiVersion": "2014-04-01",
+                    "dependsOn": [
+                        "[parameters('sqlserverName')]"
+                    ],
+                    "location": "[resourceGroup().location]",
+                    "name": "Allow connection",
+                    "properties": {
+                        "endIpAddress": "[parameters('firewallIPRangeEnd')]",
+                        "startIpAddress": "[parameters('firewallIPRangeStart')]"
+                    }
+                }
+            ]
+        }
+    ],
+    "outputs": {}
+}

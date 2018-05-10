@@ -1,0 +1,91 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "namespaces_ActivityLog_EVT_name": {
+            "defaultValue": "ActivityLog-EVT",
+            "type": "String"
+        },
+        "eventhubs_insights_operational_logs_name": {
+            "defaultValue": "insights-operational-logs",
+            "type": "String"
+        },
+        "AuthorizationRules_RootManageSharedAccessKey_name": {
+            "defaultValue": "RootManageSharedAccessKey",
+            "type": "String"
+        },
+        "consumergroups_$Default_name": {
+            "defaultValue": "$Default",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "comments": "Generalized from resource: '/subscriptions/d62609ea-45b5-4408-9f00-6693badaa0e7/resourceGroups/EventHubs-RG/providers/Microsoft.EventHub/namespaces/ActivityLog-EVT'.",
+            "type": "Microsoft.EventHub/namespaces",
+            "sku": {
+                "name": "Basic",
+                "tier": "Basic",
+                "capacity": 1
+            },
+            "name": "[parameters('namespaces_ActivityLog_EVT_name')]",
+            "apiVersion": "2017-04-01",
+            "location": "UK South",
+            "tags": {},
+            "scale": null,
+            "properties": {
+                "isAutoInflateEnabled": false,
+                "maximumThroughputUnits": 0
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/d62609ea-45b5-4408-9f00-6693badaa0e7/resourcegroups/EventHubs-RG/providers/Microsoft.EventHub/namespaces/ActivityLog-EVT/AuthorizationRules/RootManageSharedAccessKey'.",
+            "type": "Microsoft.EventHub/namespaces/AuthorizationRules",
+            "name": "[concat(parameters('namespaces_ActivityLog_EVT_name'), '/', parameters('AuthorizationRules_RootManageSharedAccessKey_name'))]",
+            "apiVersion": "2017-04-01",
+            "location": "UK South",
+            "scale": null,
+            "properties": {
+                "rights": [
+                    "Listen",
+                    "Manage",
+                    "Send"
+                ]
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_ActivityLog_EVT_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/d62609ea-45b5-4408-9f00-6693badaa0e7/resourcegroups/EventHubs-RG/providers/Microsoft.EventHub/namespaces/ActivityLog-EVT/eventhubs/insights-operational-logs'.",
+            "type": "Microsoft.EventHub/namespaces/eventhubs",
+            "name": "[concat(parameters('namespaces_ActivityLog_EVT_name'), '/', parameters('eventhubs_insights_operational_logs_name'))]",
+            "apiVersion": "2017-04-01",
+            "location": "UK South",
+            "scale": null,
+            "properties": {
+                "messageRetentionInDays": 1,
+                "partitionCount": 4,
+                "status": "Active"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_ActivityLog_EVT_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/d62609ea-45b5-4408-9f00-6693badaa0e7/resourcegroups/EventHubs-RG/providers/Microsoft.EventHub/namespaces/ActivityLog-EVT/eventhubs/insights-operational-logs/consumergroups/$Default'.",
+            "type": "Microsoft.EventHub/namespaces/eventhubs/consumergroups",
+            "name": "[concat(parameters('namespaces_ActivityLog_EVT_name'), '/', parameters('eventhubs_insights_operational_logs_name'), '/', parameters('consumergroups_$Default_name'))]",
+            "apiVersion": "2017-04-01",
+            "location": "UK South",
+            "scale": null,
+            "properties": {},
+            "dependsOn": [
+                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_ActivityLog_EVT_name'))]",
+                "[resourceId('Microsoft.EventHub/namespaces/eventhubs', parameters('namespaces_ActivityLog_EVT_name'), parameters('eventhubs_insights_operational_logs_name'))]"
+            ]
+        }
+    ]
+}
