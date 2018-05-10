@@ -6,7 +6,7 @@ The MySQL platform service follows the traditional model. Users can create a ser
 
 ## Azure CLI deployment
 
-The `az mysql server` command is used with parameters to manage a MySQL server. The `az mysql db` handles the databases on the servers.
+The `az mysql server` command is used with parameters to manage MySQL servers. The `az mysql db` handles the databases on the servers.
 
 ### MySQL server creation
 
@@ -22,7 +22,7 @@ az mysql server create --resource-group <resourceGroupName> --name <serverName> 
 az mysql db create -g <resourceGroupName> -s <serverName> -n <dbName>
 ```
 
-### Add firewall rule to the MySQL server
+### Add firewall rule to a MySQL server
 
 ```bash
 az mysql server firewall-rule create --resource-group <resourceGroupName> --server-name <serverName> \
@@ -31,4 +31,4 @@ az mysql server firewall-rule create --resource-group <resourceGroupName> --serv
 
 ## Template deployment
 
-The proviced JSON template deploys a MySQL server and a database in the server and opens up an IP range on the firewall of the SQL server. The name of the MySQL server and database, the IP range, the admin credentials and the size and the version of the server are configurable.
+The proviced JSON template deploys a MySQL server and a database in the server and opens up an IP range on the firewall of the MySQL server. The name of the MySQL server and database, the IP range, the admin credentials and the size and the version of the server are configurable.

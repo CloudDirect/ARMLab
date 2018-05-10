@@ -6,7 +6,7 @@ The service consits an SQL server and SQL databases. The SQL server does not det
 
 ## Azure CLI deployment
 
-The `az sql server` command is used with parameters to manage an SQL server. The `az sql db` command manipulates the databases.
+The `az sql server` command is used with parameters to manage SQL servers. The `az sql db` command manipulates the databases on the servers.
 
 ### SQL server creation
 
@@ -28,7 +28,7 @@ The service level objective parameter determines the performance of the database
 az sql db list-editions --location <location> --query '[].supportedServiceLevelObjectives[].name'
 ```
 
-### Add firewall rule to the SQL server
+### Add firewall rule to an SQL server
 
 ```bash
 az sql server firewall-rule create --resource-group <resourceGroupName> --server <serverName> \
