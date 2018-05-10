@@ -93,7 +93,10 @@
                     "name": "[parameters('sqlDatabaseName')]",
                     "type": "databases",
                     "apiVersion": "2017-12-01",
-                    "properties": {}
+                    "properties": {},
+                    "dependsOn": [
+                        "[parameters('serverName')]"
+                    ]
                 },
                 {
                     "name": "string",
@@ -102,7 +105,10 @@
                     "properties": {
                         "startIpAddress": "[parameters('firewallIPRangeStart')]",
                         "endIpAddress": "[parameters('firewallIPRangeEnd')]"
-                    }
+                    },
+                    "dependsOn": [
+                        "[parameters('serverName')]"
+                    ]
                 }
             ]
         }
