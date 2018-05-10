@@ -99,7 +99,7 @@
                     ]
                 },
                 {
-                    "name": "string",
+                    "name": "Allowed IPs",
                     "type": "firewallRules",
                     "apiVersion": "2017-12-01",
                     "properties": {
