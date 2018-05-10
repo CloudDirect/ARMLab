@@ -6,6 +6,8 @@ The service consits an SQL server and SQL databases. The SQL server does not det
 
 The `az sql server` command is used with parameters to create an SQL server.
 
+[![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloudDirect%2FARMLab%2Fmaster%2Ftemplates%2FazureBackupVault%2Fazuredeploy.json)
+
 ### SQL server creation:
 
 ```
@@ -23,6 +25,5 @@ az sql db create --resource-group <resourceGroupName> --server <serverName> \
 The service level objective parameter determines the performance of the database. The available capacity list is different per location. To get a of possible settings use:
 
 ```
-az sql db list-editions --location <location> \
- --query [].supportedServiceLevelObjectives[].name
+az sql db list-editions --location <location> --query [].supportedServiceLevelObjectives[].name
 ```
