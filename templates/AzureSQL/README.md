@@ -8,24 +8,24 @@ The service consits an SQL server and SQL databases. The SQL server does not det
 
 The `az sql server` command is used with parameters to create an SQL server.
 
-### SQL server creation:
+### SQL server creation
 
-```
+```bash
 az sql server create --name <serverName> --resource-group <resourceGroupName> \
 --location <location> --admin-user <adminUser> --admin-password <adminPassword>
 ```
 
-### Create a database in an SQL server:
+### Create a database in an SQL server
 
-```
+```bash
 az sql db create --resource-group <resourceGroupName> --server <serverName> \
 --name <dbName> --service-objective <serviceObjective>
 ```
 
 The service level objective parameter determines the performance of the database. The available capacity list is different per location. To get a of possible settings use:
 
-```
-az sql db list-editions --location <location> --query [].supportedServiceLevelObjectives[].name
+```bash
+az sql db list-editions --location <location> --query '[].supportedServiceLevelObjectives[].name'
 ```
 
 ## Tamplate deployment
