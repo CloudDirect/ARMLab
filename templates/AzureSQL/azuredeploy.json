@@ -47,7 +47,7 @@
                 "P15"
             ],
             "metadata": {
-                "description": "The edition od the database"
+                "description": "The size od the database"
             }
         },
         "firewallIPRangeStart": {
@@ -102,7 +102,7 @@
                         "[parameters('sqlserverName')]"
                     ],
                     "location": "[resourceGroup().location]",
-                    "name": "AllowAllWindowsAzureIps",
+                    "name": "Allow connection",
                     "properties": {
                         "endIpAddress": "[parameters('firewallIPRangeEnd')]",
                         "startIpAddress": "[parameters('firewallIPRangeStart')]"
