@@ -24,4 +24,4 @@ az mysql db create -g <resourceGroupName> -s <serverName> -n <dbName>
 
 ## Template deployment
 
-dfg
+The proviced JSON template deploys a MySQL server and a database in the server and opens up an IP range on the firewall of the SQL server. The name of the MySQL server and database, the IP range, the admin credentials and the size and the version of the server are configurable.
