@@ -25,6 +25,8 @@ az mysql db create -g <resourceGroupName> -s <serverName> -n <dbName>
 ### Add firewall rule to the server
 
 ```bash
+az mysql server firewall-rule create --resource-group <resourceGroupName> --server-name <serverName> \
+--name <ruleName> --start-ip-address <startIpAddress> --end-ip-address <endIpAddress>
 ```
 
 ## Template deployment
