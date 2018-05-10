@@ -15,9 +15,9 @@ This template deploys a Virtual Machine to Azure.
 ## Deploy from Azure Portal (UI Experience)
 
 Steps:
-	1.  This template uses Managed Disks, there is no need to create a storage account to hold your disks.
-	2.  Logon to http://portal.azure.com
-	3.  New and search for "Template Deployment"
-	4.  Copy and paste the contents of azuredeploy.json into "Edit Template"
-	5.  Update all Parameters
-	6.  Follow the rest of the UI
+1.  This template uses Managed Disks, there is no need to create a storage account to hold your disks.
+2.  Logon to http://portal.azure.com
+3.  New and search for "Template Deployment"
+4.  Copy and paste the contents of azuredeploy.json into "Edit Template"
+5.  Update all Parameters
+6.  Follow the rest of the UI
