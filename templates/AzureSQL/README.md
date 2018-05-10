@@ -28,6 +28,13 @@ The service level objective parameter determines the performance of the database
 az sql db list-editions --location <location> --query '[].supportedServiceLevelObjectives[].name'
 ```
 
+### Add firewall rule to the server
+
+```bash
+az sql server firewall-rule create --resource-group <resourceGroupName> --server <serverName> \
+--name <ruleName> --start-ip-address <startIpAddress> --end-ip-address <endIpAddress>
+```
+
 ## Template deployment
 
 The proviced JSON template deploys an SQL server and a database in the server and opens up an IP range on the firewall of the SQL server. The name of the SQL server and database, the IP range, the admin credentials and the size of the database are configurable.
