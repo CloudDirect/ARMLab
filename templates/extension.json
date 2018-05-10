@@ -14,11 +14,8 @@
         {
             "apiVersion": "2015-06-15",
             "type": "Microsoft.Compute/virtualMachines/extensions",
-            "name": "CDextra1WindowsWM",
+            "name": "[concat(parameters('vmName'), '/CDextra1WindowsWM')]",
             "location": "[resourceGroup().location]",
-            "dependsOn": [
-                "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'))]"
-            ],
             "tags": {   
                 "displayName": "CDextra1WindowsWM"
             },
@@ -32,7 +29,9 @@
                         "https://raw.githubusercontent.com/CloudDirect/ARMLab/master/scripts/script1.ps1"
                     ]
                 },
-                "protectedSettings": {}
+                "protectedSettings": {
+                    "CommandToExecute": "script1.ps1"
+                }
             }
         }
     ],
