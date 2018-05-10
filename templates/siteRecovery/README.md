@@ -1,4 +1,4 @@
-# Virtual Machine
+# Azure Site Recovery
 
 This template deploys a Recovery Services vault to Azure. 
 
