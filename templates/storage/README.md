@@ -1,6 +1,6 @@
 # Storage
 
-This template deploys a Azure Storage to Azure. 
+This template deploys an Azure Storage account to Azure. 
 
 [![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloudDirect%2FARMLab%2Fmaster%2Ftemplates%2Fstorage%2Fazuredeploy.json)
 

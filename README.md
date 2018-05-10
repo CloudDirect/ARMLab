@@ -1,9 +1,14 @@
 # ARMLab
 
-### Working area for ARM template development.
+Working area for ARM template development.
 
-### Team
+The README.md file in each folder details how to use the templates.
 
-Rich, Luke, Jan, Steve, Peter, Paul
+## Team
 
-Test
+- Rich
+- Luke
+- Jan
+- Steve
+- Peter
+- Paul
