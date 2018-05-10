@@ -1,0 +1,90 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vnetName": {
+            "type": "string",
+            "defaultValue": "myVnet",
+            "metadata": {
+                "description": "Name for the vNet."
+            }
+        },
+        "vNetResourceGroup": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().name]",
+            "metadata": {
+                "description": "Resource group for the virtual network.  Defaults to the current resource group."
+            }
+        },
+        "gatewaySku": {
+            "type": "string",
+            "defaultValue": "Basic",
+            "allowedValues": [
+                "Basic",
+                "VpnGw1",
+                "VpnGw2",
+                "VpnGw3"
+            ],
+            "metadata": {
+                "description": "The SKU of the VPN gateway."
+            }
+        }
+    },
+    "variables": {
+        "gatewayName": "[concat(parameters('vnetName'), '-gateway')]",
+        "gatewayPublicIpName": "[concat(parameters('vnetName'), '-gateway-pip')]",
+        "vnetId": "[resourceId(parameters('vNetResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('vnetName'))]",
+        "gatewaySubnetId": "[concat(variables('vnetID'), '/subnets/GatewaySubnet')]",
+        "gatewayPipId": "[resourceId('Microsoft.Network/publicIpAddresses', variables('gatewayPublicIpName'))]",
+        "vpnType": "RouteBased"
+    },
+    "resources": [
+        {
+            "name": "[variables('gatewayPublicIpName')]",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "apiVersion": "2017-10-01",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "publicIPAllocationMethod": "Dynamic"
+            }
+        },
+        {
+            "name": "[variables('gatewayName')]",
+            "type": "Microsoft.Network/virtualNetworkGateways",
+            "apiVersion": "2017-10-01",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[concat('Microsoft.Network/publicIPAddresses/', variables('gatewayPublicIpName'))]"
+            ],
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "properties": {
+                            "privateIPAllocationMethod": "Dynamic",
+                            "subnet": {
+                                "id": "[variables('gatewaySubnetId')]"
+                            },
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('gatewayPublicIpName'))]"
+                            }
+                        },
+                        "name": "vnetGatewayConfig"
+                    }
+                ],
+                "sku": {
+                    "name": "[parameters('gatewaySku')]",
+                    "tier": "[parameters('gatewaySku')]"
+                },
+                "gatewayType": "Vpn",
+                "vpnType": "[variables('vpnType')]",
+                "enableBgp": "false"
+            }
+        }
+    ],
+    "outputs": {
+        "gatewayPipId": {
+            "type": "string",
+            "value": "[variables('gatewayPipId')]"
+        }
+    }
+}
