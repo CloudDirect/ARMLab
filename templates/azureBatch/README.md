@@ -1,15 +1,15 @@
 # <Service Name>
 
-This template deploys a <Service Name> to Azure. 
+This template deploys Azure Batch to Azure. 
 
-[![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](URL-TO-azuredeploy.json)
+[![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloudDirect%2FARMLab%2Fmaster%2Ftemplates%2FazureBatch%2Fazuredeploy.json)
 
 
 ## Deploy from Azure CLI
 
 	Update Parameters in the azuredeploy.parameters.json
 	
-	az group deployment create .... EXAMPLE
+	az group deployment create --resource-group infra-prod-rg --name deployBatch --template-file "azureBatch/azuredeploy.json" --parameters "@azureBatch/azuredeploy.parameters.json"
 
 
 ## Deploy from Azure Portal (UI Experience)
