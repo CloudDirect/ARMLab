@@ -8,5 +8,6 @@ The `az sql server` command is used with parameters to create an SQL server.
 
 Example SQL server creation:
 ```
-az sql server create --name <serverName> --resource-group <resourceGroupName> --location <location> --admin-user <adminUser> --admin-password <adminPassword>
+az sql server create --name <serverName> --resource-group <resourceGroupName> \
+--location <location> --admin-user <adminUser> --admin-password <adminPassword>
 ```
