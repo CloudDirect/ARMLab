@@ -1,4 +1,4 @@
-# Virtual Machine
+# Log Analytics
 
 This template deploys a Log Analytics workspace to Azure with Solution templates and custom performance dashboard. 
 
