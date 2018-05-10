@@ -1,9 +1,12 @@
 # ARMLab
 
-### Working area for ARM template development.
+### Working area for ARM template development
 
 ### Team
 
-Rich, Luke, Jan, Steve, Peter, Paul
-
-Test
+- Rich
+- Luke
+- Jan
+- Steve
+- Peter
+- Paul
