@@ -10,18 +10,21 @@ The `az postgres server` command is used with parameters to manage MySQL servers
 
 ```bash
 az postgres server create --location <location> --resource-group <resourceGroup> \
---name <serverName> --admin-user <adminUserName> \
---admin-password <adminPassword> --sku-name <skuName>
+--name <serverName> --admin-user <adminUserName> --admin-password <adminPassword> \
+--sku-name <skuName>
 ```
 
 ### Create a database in a PostgreSQL server
 
 ```bash
+az postgres db create --resource-group <resourceGroup> --server-name <serverName> \
+--name <dbName>
 ```
 
 ### Add firewall rule to a MySQL server
 
 ```bash
+
 ```
 
 ## Template deployment
