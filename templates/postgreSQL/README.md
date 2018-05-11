@@ -24,7 +24,8 @@ az postgres db create --resource-group <resourceGroup> --server-name <serverName
 ### Add firewall rule to a MySQL server
 
 ```bash
-
+az mysql server firewall-rule create --resource-group <resourceGroup> --server-name <serverName> \
+--name <ruleName> --start-ip-address <startIpAddress> --end-ip-address <endIpAddress>
 ```
 
 ## Template deployment
