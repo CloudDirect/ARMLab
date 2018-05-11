@@ -9,9 +9,9 @@ The `az postgres server` command is used with parameters to manage MySQL servers
 ### PostgreSQL server creation
 
 ```bash
-az postgres server create --location <location> --resource-group <resourceGroup> --name <serverName> \
---admin-user <adminUserName> --admin-password <adminPassword> \
---sku-name <skuName>
+az postgres server create --location <location> --resource-group <resourceGroup> \
+--name <serverName> --admin-user <adminUserName> \
+--admin-password <adminPassword> --sku-name <skuName>
 ```
 
 ### Create a database in a PostgreSQL server
