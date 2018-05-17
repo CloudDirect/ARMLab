@@ -1,6 +1,6 @@
 # Log Analytics
 
-This template deploys a Log Analytics workspace to Azure with Solution templates and custom performance dashboard. 
+This template deploys a Log Analytics workspace to Azure with Solution templates and custom performance dashboard. The following solution templates are included as standard Alert Management, Anti-Malware, Azure Activity, Security, SQL Assesment, Update Assesment, Application Insights, Office365 and a custom Performance dashboard. All Linux & Windows performance counters to support the performance monitoring are set to 10 sec collection intervals.
 
 [![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloudDirect%2FARMLab%2Fmaster%2Ftemplates%2Floganalytics%2Fazuredeploy.json)
 
