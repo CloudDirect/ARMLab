@@ -419,7 +419,7 @@
           {
             "apiVersion": "2015-11-01-preview",
             "type": "datasources",
-            "name": "sampleLinuxPerf1",
+            "name": "sampleLinuxPerf3",
             "dependsOn": [
               "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
             ],
