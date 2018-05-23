@@ -1,1 +1,0 @@
-# Azure PostgreSQL platform service

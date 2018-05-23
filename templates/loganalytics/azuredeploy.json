@@ -427,6 +427,21 @@
         {
           "apiVersion": "2015-11-01-preview",
           "type": "datasources",
+          "name": "sampleWindowsPerfCounter17",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
+          ],
+          "kind": "WindowsPerformanceCounter",
+          "properties": {
+            "objectName": "Processor",
+            "instanceName": "*",
+            "intervalSeconds": 10,
+            "counterName": "% Processor Time"
+          }
+        },
+        {
+          "apiVersion": "2015-11-01-preview",
+          "type": "datasources",
           "name": "sampleIISLog1",
           "dependsOn": [
             "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"

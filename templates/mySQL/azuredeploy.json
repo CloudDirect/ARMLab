@@ -1,0 +1,117 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "administratorLogin": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 16,
+            "metadata": {
+                "description": "Admin user name"
+            }
+        },
+        "administratorLoginPassword": {
+            "type": "securestring",
+            "metadata": {
+                "description": "Password of the admin user"
+            }
+        },
+        "serverName": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 63,
+            "metadata": {
+                "description": "Name of the MySQL server"
+            }
+        },
+        "skuName": {
+            "type": "string",
+            "allowedValues": [
+                "B_Gen5_1",
+                "B_Gen5_2",
+                "GP_Gen5_2",
+                "GP_Gen5_4",
+                "GP_Gen5_8",
+                "GP_Gen5_16",
+                "GP_Gen5_32"
+            ],
+            "defaultValue": "GP_Gen5_2",
+            "metadata": {
+                "description": "Size of the MySQL server"
+            }
+        },
+        "sqlServerVersion": {
+            "type": "string",
+            "allowedValues": [
+                "5.6",
+                "5.7"
+            ],
+            "defaultValue": "5.7",
+            "metadata": {
+                "description": "Version of the MySQL server"
+            }
+        },
+        "sqlDatabaseName": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of the database"
+            }
+        },
+        "firewallIPRangeStart": {
+            "type": "string",
+            "metadata": {
+                "description": "Start of the allowed IP range"
+            }
+        },
+        "firewallIPRangeEnd": {
+            "type": "string",
+            "metadata": {
+                "description": "End of the allowed IP range"
+            }
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "name": "[parameters('serverName')]",
+            "type": "Microsoft.DBforMySQL/servers",
+            "apiVersion": "2017-12-01",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "displayName": "MySQLServer"
+            },
+            "properties": {
+                "version": "[parameters('sqlServerVersion')]",
+                "administratorLogin": "[parameters('administratorLogin')]",
+                "administratorLoginPassword": "[parameters('administratorLoginPassword')]"
+            },
+            "sku": {
+                "name": "[parameters('skuName')]"
+            },
+            "resources": [
+                {
+                    "name": "[parameters('sqlDatabaseName')]",
+                    "type": "databases",
+                    "apiVersion": "2017-12-01",
+                    "properties": {},
+                    "dependsOn": [
+                        "[parameters('serverName')]"
+                    ]
+                },
+                {
+                    "name": "Allowed IPs",
+                    "type": "firewallRules",
+                    "apiVersion": "2017-12-01",
+                    "properties": {
+                        "startIpAddress": "[parameters('firewallIPRangeStart')]",
+                        "endIpAddress": "[parameters('firewallIPRangeEnd')]"
+                    },
+                    "dependsOn": [
+                        "[parameters('serverName')]"
+                    ]
+                }
+            ]
+        }
+    ],
+    "outputs": {}
+}
