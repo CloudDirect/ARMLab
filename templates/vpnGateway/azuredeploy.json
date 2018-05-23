@@ -28,6 +28,40 @@
             "metadata": {
                 "description": "The SKU of the VPN gateway."
             }
+        },
+        "ciOwnerTag": {
+            "type": "string",
+            "minLength": 1,
+            "metadata": {
+                "description": "Configuration Item Owner tag for the Virtual Machine."
+            }
+        },
+        "appIDTag": {
+            "type": "string",
+            "minLength": 1,
+            "metadata": {
+                "description": "Application ID tag for the Virtual Machine."
+            }
+        },
+        "orgIDTag": {
+            "type": "string",
+            "minLength": 1,
+            "metadata": {
+                "description": "Organisation ID tag for the Virtual Machine."
+            }
+        },
+        "envTag": {
+            "type": "string",
+            "minLength": 1,
+            "allowedValues": [
+                "dev",
+                "test",
+                "prod",
+                "unspecified"
+            ],
+            "metadata": {
+                "description": "Environment tag for the Virtual Machine."
+            }
         }
     },
     "variables": {
@@ -53,6 +87,12 @@
             "type": "Microsoft.Network/virtualNetworkGateways",
             "apiVersion": "2017-10-01",
             "location": "[resourceGroup().location]",
+            "tags": {
+                "ciOwner": "[parameters('ciOwnerTag')]",
+                "appID": "[parameters('appIDTag')]",
+                "orgID": "[parameters('orgIDTag')]",
+                "env": "[parameters('envTag')]"
+            },
             "dependsOn": [
                 "[concat('Microsoft.Network/publicIPAddresses/', variables('gatewayPublicIpName'))]"
             ],
