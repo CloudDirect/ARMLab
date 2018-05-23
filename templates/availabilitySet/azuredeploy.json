@@ -7,9 +7,9 @@
             "metadata": {
                 "description": "Name for the availability set"
             },
-            "defaultValue": "myVm-as"
+            "defaultValue": "avSet-as"
         },
-        "numberOfFDs": {
+        "numberOfFds": {
             "type":"int",
             "metadata": {
                 "description": "Number of fault domains"
@@ -64,7 +64,7 @@
                 "env": "[parameters('envTag')]"
             },
             "properties": {
-                "platformFaultDomainCount": "[parameters('numberOfFDs')]",
+                "platformFaultDomainCount": "[parameters('numberOfFds')]",
                 "platformUpdateDomainCount": 5
             }
         }
