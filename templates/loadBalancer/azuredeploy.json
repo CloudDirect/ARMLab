@@ -61,12 +61,22 @@
     },
     "resources": [
         {
-            "name": "[variables('lbPublicIpName')]",
+            "name": "[concat(parameters('lbNames')[copyIndex()], '-pip')]",
             "type": "Microsoft.Network/publicIPAddresses",
             "apiVersion": "2017-10-01",
             "location": "[resourceGroup().location]",
+            "tags": {
+                "ciOwner": "[parameters('ciOwnerTag')]",
+                "appID": "[parameters('appIDTag')]",
+                "orgID": "[parameters('orgIDTag')]",
+                "env": "[parameters('envTag')]"
+            },
             "properties": {
                 "publicIPAllocationMethod": "Dynamic"
+            },
+            "copy": {
+                "name": "publicIpCopy",
+                "count": "[length(parameters('lbNames'))]"
             }
         },
         {
@@ -80,7 +90,57 @@
                 "orgID": "[parameters('orgIDTag')]",
                 "env": "[parameters('envTag')]"
             },
-            "properties": {},
+            "dependsOn": [
+                "publicIpCopy"
+            ],
+            "properties": {
+                "frontendIPConfigurations": [
+                    {
+                        "name": "LoadBalancerFrontend",
+                        "properties": {
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat(parameters('lbNames')[copyIndex()], '-pip'))]"
+                            }
+                        }
+                    }
+                ],
+                "backendAddressPools": [
+                    {
+                        "name": "BackendPool"
+                    }
+                ],
+                "probes": [
+                    {
+                        "name": "lbprobe",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "port": 80,
+                            "intervalInSeconds": 15,
+                            "numberOfProbes": 2
+                        }
+                    }
+                ],
+                "loadBalancingRules": [
+                    {
+                        "name": "lbrule",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', concat(parameters('lbNames')[copyIndex()], '-lb')), '/frontendIPConfigurations/LoadBalancerFrontend')]"
+                            },
+                            "backendAddressPool": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', concat(parameters('lbNames')[copyIndex()], '-lb')), '/backendAddressPools/BackendPool')]"
+                            },
+                            "probe": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', concat(parameters('lbNames')[copyIndex()], '-lb')), '/probes/lbprobe')]"
+                            },
+                            "protocol": "Tcp",
+                            "frontendPort": 80,
+                            "backendPort": 80,
+                            "idleTimeoutInMinutes": 15
+                        }
+                    }
+                ]
+            },
             "copy": {
                 "name": "loadBalancerCopy",
                 "count": "[length(parameters('lbNames'))]"
