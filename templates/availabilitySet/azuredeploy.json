@@ -1,0 +1,72 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "asName": {
+            "type": "string",
+            "metadata": {
+                "description": "Name for the availability set"
+            },
+            "defaultValue": "myVm-as"
+        },
+        "numberOfFDs": {
+            "type":"int",
+            "metadata": {
+                "description": "Number of fault domains"
+            },
+            "defaultValue": 2
+        },
+        "ciOwnerTag": {
+            "type": "string",
+            "minLength": 1,
+            "metadata": {
+                "description": "Configuration Item Owner tag for the Virtual Machine."
+            }
+        },
+        "appIDTag": {
+            "type": "string",
+            "minLength": 1,
+            "metadata": {
+                "description": "Application ID tag for the Virtual Machine."
+            }
+        },
+        "orgIDTag": {
+            "type": "string",
+            "minLength": 1,
+            "metadata": {
+                "description": "Organisation ID tag for the Virtual Machine."
+            }
+        },
+        "envTag": {
+            "type": "string",
+            "minLength": 1,
+            "allowedValues": [
+                "dev",
+                "test",
+                "prod",
+                "unspecified"
+            ],
+            "metadata": {
+                "description": "Environment tag for the Virtual Machine."
+            }
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Compute/availabilitySets",
+            "name": "[parameters('asName')]",
+            "apiVersion": "2017-12-01",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "ciOwner": "[parameters('ciOwnerTag')]",
+                "appID": "[parameters('appIDTag')]",
+                "orgID": "[parameters('orgIDTag')]",
+                "env": "[parameters('envTag')]"
+            },
+            "properties": {
+                "platformFaultDomainCount": "[parameters('numberOfFDs')]",
+                "platformUpdateDomainCount": 5
+            }
+        }
+    ]
+}
