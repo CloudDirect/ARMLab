@@ -8,7 +8,9 @@
                 "web",
                 "app",
                 "data"
-            ]
+            ],
+            "metadata": {
+                "description": "Names for the availability sets."
         },
         "numberOfFds": {
             "type": "int",
