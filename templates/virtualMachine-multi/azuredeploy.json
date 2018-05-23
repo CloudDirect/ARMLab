@@ -26,7 +26,7 @@
             "metadata": {
                 "description": "Prefix for the VMs"
             },
-            "defaultValue": "myVmX"
+            "defaultValue": "myVm"
         },
         "vmSize": {
             "type": "string",
@@ -100,7 +100,7 @@
         },
         "subnetName": {
             "type": "string",
-            "defaultValue": "WebTierSubnet",
+            "defaultValue": "web",
             "metadata": {
                 "description": "Name of the subnet"
             }
@@ -187,7 +187,7 @@
         "subnetRef": "[concat(variables('vnetID'), '/subnets/', parameters('subnetName'))]",
         "vmName": "[concat(parameters('vmPrefix'), '-vm')]",
         "storageAccountType": "Standard_LRS",
-        "storageAccountName": "[concat('bootdiag', uniquestring(resourceGroup().id))]"
+        "storageAccountName": "[toLower(concat('bd', parameters('vmPrefix'), uniquestring(resourceGroup().id)))]"
     },
     "resources": [
         {
