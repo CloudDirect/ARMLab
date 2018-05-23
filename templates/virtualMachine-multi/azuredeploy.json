@@ -212,7 +212,7 @@
             "name": "[concat(variables('vmName'), copyIndex(1), '-nic')]",
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2017-06-01",
-            "location": "[resourceGroup().location]",
+            "location": "[parameters('vmResourceGroup')]",
             "tags": {
                 "ciOwner": "[parameters('ciOwnerTag')]",
                 "appID": "[parameters('appIDTag')]",
@@ -241,7 +241,7 @@
             "name": "[concat(variables('vmName'), copyIndex(1))]",
             "type": "Microsoft.Compute/virtualMachines",
             "apiVersion": "2017-03-30",
-            "location": "[resourceGroup().location]",
+            "location": "[parameters('vmResourceGroup')]",
             "tags": {
                 "ciOwner": "[parameters('ciOwnerTag')]",
                 "appID": "[parameters('appIDTag')]",
