@@ -1,0 +1,30 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "osType": {
+            "value": "windows"
+        },
+        "vmSize": {
+            "value": "medium"
+        },
+        "vnetResourceGroup": {
+            "value": "network-prod-rg"
+        },
+        "vmName": {
+            "value": "windows-vm1"
+        },
+        "ciOwnerTag": {
+            "value": "Luke Fussell"
+        },
+        "appIDTag": {
+            "value": "Demo"
+        },
+        "orgIDTag": {
+            "value": "PreSales"
+        },
+        "envTag": {
+            "value": "prod"
+        }
+    }
+}
