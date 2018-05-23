@@ -2,7 +2,15 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "asNames": {
+        "applicationName": {
+            "type": "string",
+            "minLength": 1,
+            "defaultValue": "myApp",
+            "metadata": {
+                "description": "Name for the application."
+            }
+        },
+        "lbNames": {
             "type": "array",
             "defaultValue": [
                 "web",
@@ -10,15 +18,8 @@
                 "data"
             ],
             "metadata": {
-                "description": "Names for the availability sets."
+                "description": "Names for the load balancers."
             }
-        },
-        "numberOfFds": {
-            "type": "int",
-            "metadata": {
-                "description": "Number of fault domains"
-            },
-            "defaultValue": 2
         },
         "ciOwnerTag": {
             "type": "string",
@@ -55,11 +56,23 @@
             }
         }
     },
+    "variables": {
+        "lbPublicIpName": "[concat(parameters('applicationName'), '-pip')]"
+    },
     "resources": [
         {
-            "type": "Microsoft.Compute/availabilitySets",
-            "name": "[concat(parameters('asNames')[copyIndex()], '-as')]",
-            "apiVersion": "2017-12-01",
+            "name": "[variables('lbPublicIpName')]",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "apiVersion": "2017-10-01",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "publicIPAllocationMethod": "Dynamic"
+            }
+        },
+        {
+            "name": "[concat(parameters('lbNames')[copyIndex()], '-lb')]",
+            "type": "Microsoft.Network/loadBalancers",
+            "apiVersion": "2017-10-01",
             "location": "[resourceGroup().location]",
             "tags": {
                 "ciOwner": "[parameters('ciOwnerTag')]",
@@ -67,14 +80,12 @@
                 "orgID": "[parameters('orgIDTag')]",
                 "env": "[parameters('envTag')]"
             },
-            "properties": {
-                "platformFaultDomainCount": "[parameters('numberOfFds')]",
-                "platformUpdateDomainCount": 5
-            },
+            "properties": {},
             "copy": {
-                "name": "availabilitySetCopy",
-                "count": "[length(parameters('asNames'))]"
+                "name": "loadBalancerCopy",
+                "count": "[length(parameters('lbNames'))]"
             }
         }
-    ]
+    ],
+    "outputs": {}
 }
