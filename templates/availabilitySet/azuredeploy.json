@@ -9,8 +9,16 @@
             },
             "defaultValue": "avSet-as"
         },
+        "asNames": {
+            "type": "array",
+            "defaultValue": [
+                "web",
+                "app",
+                "data"
+            ]
+        },
         "numberOfFds": {
-            "type":"int",
+            "type": "int",
             "metadata": {
                 "description": "Number of fault domains"
             },
@@ -54,7 +62,7 @@
     "resources": [
         {
             "type": "Microsoft.Compute/availabilitySets",
-            "name": "[parameters('asName')]",
+            "name": "[concat(parameters('asNames')[copyIndex()], '-as')]",
             "apiVersion": "2017-12-01",
             "location": "[resourceGroup().location]",
             "tags": {
@@ -66,6 +74,10 @@
             "properties": {
                 "platformFaultDomainCount": "[parameters('numberOfFds')]",
                 "platformUpdateDomainCount": 5
+            },
+            "copy": {
+                "name": "availabilitySetCopy",
+                "count": "[length(parameters('asNames'))]"
             }
         }
     ]
