@@ -14,13 +14,6 @@
                 "description": "Password for the Virtual Machine."
             }
         },
-        "vmResourceGroup": {
-            "type": "string",
-            "defaultValue": "infra-rg",
-            "metadata": {
-                "description": "Resource Group for infrastructure resources"
-            }
-        },
         "numberOfVms": {
             "type": "int",
             "defaultValue": 3,
@@ -212,7 +205,7 @@
             "name": "[concat(variables('vmName'), copyIndex(1), '-nic')]",
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2017-06-01",
-            "location": "[parameters('vmResourceGroup')]",
+            "location": "[resourceGroup().location]",
             "tags": {
                 "ciOwner": "[parameters('ciOwnerTag')]",
                 "appID": "[parameters('appIDTag')]",
@@ -241,7 +234,7 @@
             "name": "[concat(variables('vmName'), copyIndex(1))]",
             "type": "Microsoft.Compute/virtualMachines",
             "apiVersion": "2017-03-30",
-            "location": "[parameters('vmResourceGroup')]",
+            "location": "[resourceGroup().location]",
             "tags": {
                 "ciOwner": "[parameters('ciOwnerTag')]",
                 "appID": "[parameters('appIDTag')]",
