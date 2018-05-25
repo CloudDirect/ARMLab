@@ -184,7 +184,7 @@
         },
         "vm": "[variables(concat(parameters('vmSize'), 'Vm'))]",
         "vnetID": "[resourceId(parameters('vnetResourceGroup'), 'Microsoft.Network/virtualNetworks/', parameters('vnetName'))]",
-        "availabilitySetID": "[resourceId(parameters('vnetResourceGroup'), 'Microsoft.Compute/availabilitySets/', concat(parameters('subnetName'),'-as'))]",
+        "availabilitysetID": "[resourceId(parameters('vnetResourceGroup'), 'Microsoft.Compute/availabilitySets/', concat(parameters('subnetName'),'-as'))]",
         "subnetRef": "[concat(variables('vnetID'), '/subnets/', parameters('subnetName'))]",
         "vmName": "[concat(parameters('vmPrefix'), '-vm')]",
         "storageAccountType": "Standard_LRS",
@@ -288,7 +288,7 @@
                     }
                 },
                 "availabilitySet": {
-                    "id": "[variables('availabilitySetID')]"
+                    "id": "[resourceId('Microsoft.Compute/availabilitySets', concat(parameters('subnetName'),'-as'))]"
                 }
             },
             "copy": {
