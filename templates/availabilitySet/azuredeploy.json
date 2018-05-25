@@ -71,6 +71,9 @@
                 "platformFaultDomainCount": "[parameters('numberOfFds')]",
                 "platformUpdateDomainCount": 5
             },
+            "sku": {
+                "name": "aligned"
+            },
             "copy": {
                 "name": "availabilitySetCopy",
                 "count": "[length(parameters('asNames'))]"
