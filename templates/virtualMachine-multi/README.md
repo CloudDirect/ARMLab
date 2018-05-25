@@ -1,15 +1,15 @@
 # Virtual Machine
 
-This template deploys a Virtual Machine to Azure. 
+This template deploys multiple Virtual Machines to Azure. 
 
-[![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloudDirect%2FARMLab%2Fmaster%2Ftemplates%2FvirtualMachine%2Fazuredeploy.json)
+[![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloudDirect%2FARMLab%2Fmaster%2Ftemplates%2FvirtualMachine-multi%2Fazuredeploy.json)
 
 
 ## Deploy from Azure CLI
 
 	Update Parameters in the azuredeploy.parameters.json
 	
-	az group deployment create --resource-group infra-prod-rg --name deployUbuntu --template-file "virtualMachine/azuredeploy.json" --parameters	"@virtualMachine/azuredeploy.parameters.json" --no-wait
+	az group deployment create --resource-group infra-prod-rg --name deployUbuntu --template-file "virtualMachine-multi/azuredeploy.json" --parameters	"@virtualMachine-multi/azuredeploy.parameters.json" --no-wait
 
 
 ## Deploy from Azure Portal (UI Experience)
