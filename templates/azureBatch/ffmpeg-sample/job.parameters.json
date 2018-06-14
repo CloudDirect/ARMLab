@@ -1,0 +1,17 @@
+{
+    "jobId": {
+      "value": "job1"
+    },
+    "inputFileGroup": {
+      "value": "sample"
+    },  
+    "outputFileStorageUrl": {
+      "value": "https://batchemgslrt7hf4dg.blob.core.windows.net/output"
+    },
+    "taskStart": {
+      "value": 1
+    },
+    "taskEnd": {
+      "value": 8
+    }
+  }

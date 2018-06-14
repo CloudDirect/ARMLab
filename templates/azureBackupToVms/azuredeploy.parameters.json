@@ -3,10 +3,10 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
       "existingVirtualMachinesResourceGroup": {
-        "value": "infra-prod-rg"
+        "value": "demo-infra-rg"
       },
       "existingVirtualMachines": {
-        "value": ["windows-vm1","windows-vm2","windows-vm3","ubuntu-vm1"]
+        "value": ["demo-web-vm1","demo-app-vm2","demo-app-vm3","demo-app-vm1","demo-app-vm2","demo-app-vm3", "demo-data-vm1","demo-data-vm2","demo-data-vm3"]
       },
       "existingRecoveryServicesVault": {
         "value": "VmBackupVault"

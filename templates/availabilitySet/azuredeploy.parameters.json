@@ -1,0 +1,28 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "asNames": {
+            "value": [
+                "web",
+                "app",
+                "data"
+            ]
+        },
+        "numberOfFDs": {
+            "value": 2
+        },
+        "ciOwnerTag": {
+            "value": "Luke Fussell"
+        },
+        "appIDTag": {
+            "value": "Demo"
+        },
+        "orgIDTag": {
+            "value": "PreSales"
+        },
+        "envTag": {
+            "value": "prod"
+        }
+    }
+}

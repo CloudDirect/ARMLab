@@ -1,0 +1,27 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vnetName": {
+            "value": "core"
+        },
+        "vNetResourceGroup": {
+            "value": "demo-network-rg"
+        },
+        "gatewaySku": {
+            "value": "VpnGw1"
+        },
+        "ciOwnerTag": {
+            "value": "Luke Fussell"
+        },
+        "appIDTag": {
+            "value": "Demo"
+        },
+        "orgIDTag": {
+            "value": "PreSales"
+        },
+        "envTag": {
+            "value": "prod"
+        }
+    }
+}
