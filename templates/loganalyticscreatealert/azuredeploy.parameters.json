@@ -9,13 +9,13 @@
         "value": "Triggers an alert every 24 hours for each server missing critical updates - will exclude any servers that already have an open incident"
       },
       "AppInsightsName": {
-        "value": "WestOne-Monitoring-WS"
+        "value": "LH-Monitoring-WS"
       },
       "TriggerThresholdOperator": {
         "value": "GreaterThan"
       },
       "TriggerThreshold": {
-        "value": "0"
+        "value": 0
       },
       "FrequencyInMinutes": {
         "value": 5
