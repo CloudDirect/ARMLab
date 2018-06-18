@@ -169,8 +169,8 @@
         "imageReference": "[variables(concat(parameters('osType'), 'ImageReference'))]",
         "smallVm": {
             "size": "Standard_DS1_v2",
-            "numberOfDisks": 1,
-            "diskSize": 512
+            "numberOfDisks": 2,
+            "diskSize": 1023
         },
         "mediumVm": {
             "size": "Standard_DS2_v2",
@@ -179,7 +179,7 @@
         },
         "largeVm": {
             "size": "Standard_DS4_v2",
-            "numberOfDisks": 4,
+            "numberOfDisks": 2,
             "diskSize": 1023
         },
         "vm": "[variables(concat(parameters('vmSize'), 'Vm'))]",
