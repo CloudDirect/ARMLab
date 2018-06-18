@@ -3,19 +3,19 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
       "AlertName": {
-        "value": "Provisioned Alert"
+        "value": "UPD - Servers Missing Critical Updates - Test"
       },
       "alertDesc": {
-        "value": "This is the description"
+        "value": "Triggers an alert every 24 hours for each server missing critical updates - will exclude any servers that already have an open incident"
       },
       "AppInsightsName": {
-        "value": "app-insights-name"
+        "value": "WestOne-Monitoring-WS"
       },
       "TriggerThresholdOperator": {
         "value": "GreaterThan"
       },
       "TriggerThreshold": {
-        "value": 5
+        "value": "0"
       },
       "FrequencyInMinutes": {
         "value": 5
@@ -27,10 +27,10 @@
         "value": "3"
       },
       "actionGroupName": {
-        "value": "action-group"
+        "value": "SNConnector"
       },
       "AppInsightsQuery": {
-        "value": "requests"
+        "value": "Update | where UpdateState == 'Needed' and Optional == false and Classification == 'Security Updates' and Approved != false | summarize AggregatedValue = count() by Computer"
       }
     }
   }

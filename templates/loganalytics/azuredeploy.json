@@ -217,6 +217,21 @@
         {
           "apiVersion": "2015-11-01-preview",
           "type": "datasources",
+          "name": "sampleWindowsPerfCounter18",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
+          ],
+          "kind": "WindowsPerformanceCounter",
+          "properties": {
+            "objectName": "Memory",
+            "instanceName": "*",
+            "intervalSeconds": 10,
+            "counterName": "% Committed Bytes In Use"
+          }
+        },
+        {
+          "apiVersion": "2015-11-01-preview",
+          "type": "datasources",
           "name": "sampleWindowsPerfCounter3",
           "dependsOn": [
             "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
