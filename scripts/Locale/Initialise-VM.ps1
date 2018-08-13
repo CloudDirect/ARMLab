@@ -1,11 +1,6 @@
 # Set Locale, language etc. 
 & $env:SystemRoot\System32\control.exe "intl.cpl,,/f:`"UKRegion.xml`""
 
-# These would be nice but they don't affect the default user account, so are pretty pointless.
-#Set-WinSystemLocale -SystemLocale en-GB
-#Set-WinHomeLocation -GeoId 242
-#Set-WinUserLanguageList -LanguageList (New-WinUserLanguageList -Language en-GB) -Force ..
-
 # Set Timezone
 & tzutil /s "GMT Standard Time"
 
