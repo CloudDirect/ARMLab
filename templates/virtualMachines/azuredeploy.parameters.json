@@ -1,0 +1,39 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "adminUsername": {
+            "value": "exampleadmin"
+        },
+        "osType": {
+            "value": "windows"
+        },
+        "windowsOSVersion": {
+            "value": "2012-R2-Datacenter"
+        },
+        "numberofVms": {
+            "value": 4
+        },
+        "vmSize": {
+            "value": "medium"
+        },
+        "vnetResourceGroup": {
+            "value": "demo-net-rg"
+        },
+        "vmPrefix": {
+            "value": "demo"
+        },
+        "ciOwnerTag": {
+            "value": "Luke Fussell"
+        },
+        "appIDTag": {
+            "value": "Demo"
+        },
+        "orgIDTag": {
+            "value": "PreSales"
+        },
+        "envTag": {
+            "value": "prod"
+        }
+    }
+}
