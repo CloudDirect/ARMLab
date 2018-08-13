@@ -6,7 +6,7 @@
             "value": "exadmin"
         },
         "domainToJoin": {
-            "value": "contoso"
+            "value": "contoso.com"
         },
         "domainUsername": {
             "value": "exadmin"
