@@ -125,14 +125,14 @@
         },
         "vnetName": {
             "type": "string",
-            "defaultValue": "core",
+            "defaultValue": "vnet",
             "metadata": {
                 "description": "Name of the virtual network"
             }
         },
         "subnetName": {
             "type": "string",
-            "defaultValue": "web",
+            "defaultValue": "test",
             "metadata": {
                 "description": "Name of the subnet"
             }
@@ -331,7 +331,7 @@
         {
             "apiVersion": "2018-06-01",
             "type": "Microsoft.Compute/virtualMachines/extensions",
-            "name": "[concat(variables('vmName'), copyIndex(1))]",
+            "name": "[concat(variables('vmName'), copyIndex(1), '/joindomain')]",
             "location": "[resourceGroup().location]",
             "tags": {
                 "ciOwner": "[parameters('ciOwnerTag')]",

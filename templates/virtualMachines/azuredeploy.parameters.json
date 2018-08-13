@@ -3,16 +3,16 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "adminUsername": {
-            "value": "exampleadmin"
+            "value": "exadmin"
         },
         "domainToJoin": {
-            "value": "exampledomain"
+            "value": "contoso"
         },
         "domainUsername": {
             "value": "exadmin"
         },
         "ouPath": {
-            "value": "OU=testOU; DC=domain; DC=Domain; DC=com"
+            "value": "OU=Demo; DC=contoso; DC=com"
         },
         "domainJoinOptions": {
             "value": 3
@@ -30,7 +30,7 @@
             "value": "medium"
         },
         "vnetResourceGroup": {
-            "value": "demo-net-rg"
+            "value": "domain-infra-rg"
         },
         "vmPrefix": {
             "value": "demo"
