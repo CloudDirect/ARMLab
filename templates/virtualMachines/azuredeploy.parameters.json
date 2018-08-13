@@ -5,6 +5,18 @@
         "adminUsername": {
             "value": "exampleadmin"
         },
+        "domainToJoin": {
+            "value": "exampledomain"
+        },
+        "domainUsername": {
+            "value": "exadmin"
+        },
+        "ouPath": {
+            "value": "OU=testOU; DC=domain; DC=Domain; DC=com"
+        },
+        "domainJoinOptions": {
+            "value": 3
+        },
         "osType": {
             "value": "windows"
         },
