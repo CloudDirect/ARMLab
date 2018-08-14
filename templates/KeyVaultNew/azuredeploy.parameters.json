@@ -1,0 +1,24 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "keyVaultName": {
+            "value": "demo-vault1"
+        },
+        "objectId": {
+            "value": "41179b0b-a334-4e31-beff-8af2300ec04a"
+        },
+        "ciOwnerTag": {
+            "value": "Jeff Field"
+        },
+        "appIDTag": {
+            "value": "demo"
+        },
+        "orgIDTag": {
+            "value": "presales"
+        },
+        "envTag": {
+            "value": "prod"
+        }
+    }
+}
