@@ -14,17 +14,17 @@
                     {
                         "name": "GatewaySubnet",
                         "addressPrefix": "172.16.0.0/24",
-                        "nsg": "AllowRDP"
+                        "nsg": "AllowHTTPS"
                     },
                     {
                         "name": "subnetA",
                         "addressPrefix": "172.16.1.0/24",
-                        "nsg": "AllowRDP"
+                        "nsg": "AllowHTTPS"
                     },
                     {
                         "name": "subnetB",
                         "addressPrefix": "172.16.2.0/24",
-                        "nsg": "AllowRDP"
+                        "nsg": "AllowHTTPS"
                     }
                 ]
             },
@@ -34,12 +34,14 @@
         },
         "dnsServerAddress": {
             "type": "array",
+            "defaultValue": [],
             "metadata": {
-                "Description": "The DNS address(es) of the DNS Server(s) used by the vNet."
+                "Description": "The DNS address(es) of the DNS Server(s) used by the vNet. Use [] for defaults."
             }
         },
         "nsgResourceGroup": {
             "type": "string",
+            "defaultValue": "NSGs",
             "metadata": {
                 "Description": "Resource Group containing Network Security Groups"
             }
