@@ -41,15 +41,15 @@ Markdown | Less | Pretty
 *Still* | `renders` | **nicely**
 1 | 2 | 3
 
-| Parameter                        | Description 
-| -------------------------------- | ----------- 
-| vNet / 'name'                    | Name of the Virtual Network.
-| vNet / 'resourceGroup'           | Resource Group of the Virtual Network.
-| vNet / 'addressPrefixes'         | Subnet ranges within the Virtual Network in CIDR notation. Can be multiple ranges.
-| vNet / 'dnsServerAddresses'      | DNS servers allocation by DHCP within the Virtual Network. Can be multiple IP addresses. Leave blank to use Default Azure DNS servers.
-| vNet / 'subnets'                 | Subnets within the Virtual Network, multiple subnets can exist within the Virtual Network.
-| vNet / subnets / 'name'          | Name of the subnet.
-| vNet / subnets / 'addressPrefix' | Subnet for the subnet in CIDR notation.
-| vNet / subnets / 'nsg'           | Network Security Group (NSG) name applied to the subnet.
-| 'nsgResourceGroup'               | Name of the Resource Group containing the NSGs applied to the subnets.
+| Parameter                          | Description 
+| ---------------------------------- | ----------- 
+| vNet / **name**                    | Name of the Virtual Network.
+| vNet / **resourceGroup**           | Resource Group of the Virtual Network.
+| vNet / **addressPrefixes**         | Subnet ranges within the Virtual Network in CIDR notation. Can be multiple ranges.
+| vNet / **dnsServerAddresses**      | DNS servers allocation by DHCP within the Virtual Network. Can be multiple IP addresses. Leave blank to use Default Azure DNS servers.
+| vNet / **subnets**                 | Subnets within the Virtual Network, multiple subnets can exist within the Virtual Network.
+| vNet / subnets / **name**          | Name of the subnet.
+| vNet / subnets / **addressPrefix** | Subnet for the subnet in CIDR notation.
+| vNet / subnets / **nsg**           | Network Security Group (NSG) name applied to the subnet.
+| **nsgResourceGroup**               | Name of the Resource Group containing the NSGs applied to the subnets.
 
