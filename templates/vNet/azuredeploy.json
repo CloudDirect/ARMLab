@@ -13,15 +13,18 @@
                 "subnets": [
                     {
                         "name": "GatewaySubnet",
-                        "addressPrefix": "172.16.0.0/24"
+                        "addressPrefix": "172.16.0.0/24",
+                        "nsg": "AllowRDP"
                     },
                     {
                         "name": "subnetA",
-                        "addressPrefix": "172.16.1.0/24"
+                        "addressPrefix": "172.16.1.0/24",
+                        "nsg": "AllowRDP"
                     },
                     {
                         "name": "subnetB",
-                        "addressPrefix": "172.16.2.0/24"
+                        "addressPrefix": "172.16.2.0/24",
+                        "nsg": "AllowRDP"
                     }
                 ]
             },
@@ -32,9 +35,15 @@
         "dnsServerAddress": {
             "type": "array",
             "metadata": {
-              "Description": "The DNS address(es) of the DNS Server(s) used by the vNet."
+                "Description": "The DNS address(es) of the DNS Server(s) used by the vNet."
             }
-          }
+        },
+        "nsgResourceGroup": {
+            "type": "string",
+            "metadata": {
+                "Description": "Resource Group containing Network Security Groups"
+            }
+        }
     },
     "variables": {
         "vnetId": "[ resourceId(parameters('vNet').resourceGroup, 'Microsoft.Network/virtualNetworks', parameters('vNet').name)]"
@@ -51,7 +60,7 @@
                 },
                 "dhcpOptions": {
                     "dnsServers": "[parameters('dnsServerAddress')]"
-                  },
+                },
                 "copy": [
                     {
                         "name": "subnets",
@@ -59,7 +68,10 @@
                         "input": {
                             "name": "[parameters('vNet').subnets[copyIndex('subnets')].name]",
                             "properties": {
-                                "addressPrefix": "[parameters('vNet').subnets[copyIndex('subnets')].addressPrefix]"
+                                "addressPrefix": "[parameters('vNet').subnets[copyIndex('subnets')].addressPrefix]",
+                                "networkSecurityGroup": {
+                                    "id": "[resourceId(parameters('nsgResourceGroup'), 'Microsoft.Network/networkSecurityGroups', parameters('vNet').subnets[copyIndex('subnets')].nsg)]"
+                                }
                             }
                         }
                     }
