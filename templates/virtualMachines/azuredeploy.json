@@ -362,7 +362,36 @@
                 "name": "virtualMachineExtensionsCopy",
                 "count": "[parameters('numberOfVms')]"
             }
-          }
-    ],
+          },
+        {
+                "apiVersion": "2018-06-01",
+                "type": "Microsoft.Compute/virtualMachines/extensions",
+                "name": "[concat(variables('vmName'), copyIndex(1), '/LanguageSettings')]",
+                "location": "[resourceGroup().location]",
+                "tags": {
+                    "ciOwner": "[parameters('ciOwnerTag')]",
+                    "appID": "[parameters('appIDTag')]",
+                    "orgID": "[parameters('orgIDTag')]",
+                    "env": "[parameters('envTag')]"
+                },
+                "dependsOn": [
+                    "[concat('Microsoft.Compute/virtualMachines/', variables('vmName'), copyIndex(1))]"
+                  ],
+                "properties": {
+                  "publisher": "Microsoft.Compute",
+                  "type": "CustomScriptExtension",
+                  "typeHandlerVersion": "1.7",
+                  "autoUpgradeMinorVersion": true,
+                  "settings": {
+                    "fileUris": ["https://raw.githubusercontent.com/CloudDirect/ARMLab/master/scripts/Locale/Initialise-VM.ps1", "https://raw.githubusercontent.com/CloudDirect/ARMLab/master/scripts/Locale/UKRegion.xml"],
+                    "commandToExecute": "powershell.exe -ExecutionPolicy Unrestricted -File Initialise-VM.ps1"
+                  }
+                },
+                "copy":{
+                    "name": "VirtualMachineLocaleCopy",
+                    "count": "[parameters('numberOfVms')]"
+                }
+            }   
+        ],
     "outputs": {}
 }

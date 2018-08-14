@@ -1,0 +1,27 @@
+{
+    "apiVersion": "2015-05-01-preview",
+    "type": "Microsoft.Compute/virtualMachines/extensions",
+    "name": "[concat(parameters('VirtualMachineNames')[copyIndex()],'/LanguageSettings')]",
+    "location": "[resourceGroup().location]",
+    "copy": {
+      "name": "VirtualMachineCSELoop",
+      "count": "[length(parameters('VirtualMachineNames'))]"
+    },
+    "dependsOn": [
+      "[concat('Microsoft.Compute/virtualMachines/', parameters('VirtualMachineNames')[copyIndex()])]"
+    ],
+    "properties": {
+      "publisher": "Microsoft.Compute",
+      "type": "CustomScriptExtension",
+      "typeHandlerVersion": "1.7",
+      "autoUpgradeMinorVersion": "true",
+      "settings": {
+        "fileUris": ["https://StorageAccountWithFiles.blob.core.windows.net/customscripts/Initialise-VM.ps1", "https://StorageAccountWithFiles.blob.core.windows.net/customscripts/UKRegion.xml"],
+        "commandToExecute": "powershell.exe -ExecutionPolicy Unrestricted -File Initialise-VM.ps1"
+      },
+      "protectedSettings": {
+        "storageAccountName": "StorageAccountWithFiles",
+        "storageAccountKey": "[listKeys(resourceId('ResourceGroupOfStorageAccountWithFiles','Microsoft.Storage/storageAccounts', 'StorageAccountWithFiles')), '2015-06-15').key1]"
+      }
+    }
+  }
