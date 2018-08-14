@@ -4,15 +4,21 @@
     "parameters": {
         "vnet": {
             "value": {
-                "name": "core",
-                "resourceGroup": "core",
-                "addressPrefixes": [ "172.16.0.0/16" ],
+                "name": "demo",
+                "resourceGroup": "demo-net-rg",
+                "addressPrefixes": [ "172.16.0.0/22" ],
                 "subnets": [
                     { "name": "GatewaySubnet", "addressPrefix": "172.16.0.0/24" },
                     { "name": "outside",       "addressPrefix": "172.16.1.0/24" },
                     { "name": "inside",       "addressPrefix": "172.16.2.0/24" }
                 ]
             }
+        },
+        "dnsServerAddress": {
+            "value": [
+                "172.16.0.5",
+                "8.8.8.8"
+              ]
         }
     }
 }

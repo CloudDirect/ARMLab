@@ -28,7 +28,13 @@
             "metadata": {
                 "description": "Object containing vNet information. See default value for expected format."
             }
-        }
+        },
+        "dnsServerAddress": {
+            "type": "array",
+            "metadata": {
+              "Description": "The DNS address(es) of the DNS Server(s) used by the vNet."
+            }
+          }
     },
     "variables": {
         "vnetId": "[ resourceId(parameters('vNet').resourceGroup, 'Microsoft.Network/virtualNetworks', parameters('vNet').name)]"
@@ -43,6 +49,9 @@
                 "addressSpace": {
                     "addressPrefixes": "[parameters('vNet').addressPrefixes]"
                 },
+                "dhcpOptions": {
+                    "dnsServers": "[parameters('dnsServerAddress')]"
+                  },
                 "copy": [
                     {
                         "name": "subnets",
