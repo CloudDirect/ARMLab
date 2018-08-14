@@ -1,3 +1,5 @@
+Try
+{
 # Set Locale, language etc. 
 & $env:SystemRoot\System32\control.exe "intl.cpl,,/f:`"UKRegion.xml`""
 
@@ -6,6 +8,11 @@
 
 # Set languages/culture
 Set-Culture en-GB
+}
+Catch
+{
+$PSItem.InvocationInfo | out-file -filepath c:\error.txt
+}
 
 # Add/format any raw data disks and name them as per their LUN ID.
 $CandidateRawDisks = Get-Disk |  Where {$_.PartitionStyle -eq 'raw'} | Sort -Property Number
