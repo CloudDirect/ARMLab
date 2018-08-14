@@ -10,6 +10,8 @@
                 "addressPrefixes": [
                     "172.16.0.0/16"
                 ],
+                "dnsServerAddresses": [
+                ],
                 "subnets": [
                     {
                         "name": "GatewaySubnet",
@@ -30,13 +32,6 @@
             },
             "metadata": {
                 "description": "Object containing vNet information. See default value for expected format."
-            }
-        },
-        "dnsServerAddress": {
-            "type": "array",
-            "defaultValue": [],
-            "metadata": {
-                "Description": "The DNS address(es) of the DNS Server(s) used by the vNet. Use [] for defaults."
             }
         },
         "nsgResourceGroup": {
@@ -61,7 +56,7 @@
                     "addressPrefixes": "[parameters('vNet').addressPrefixes]"
                 },
                 "dhcpOptions": {
-                    "dnsServers": "[parameters('dnsServerAddress')]"
+                    "dnsServers": "[parameters('vNet').dnsServerAddresses]"
                 },
                 "copy": [
                     {

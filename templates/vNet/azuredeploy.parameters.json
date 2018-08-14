@@ -7,18 +7,16 @@
                 "name": "demo",
                 "resourceGroup": "demo-net-rg",
                 "addressPrefixes": [ "172.16.0.0/22" ],
+                "dnsServerAddresses": [ 
+                    "172.16.0.5",
+                    "8.8.8.8"
+                ],
                 "subnets": [
                     { "name": "GatewaySubnet", "addressPrefix": "172.16.0.0/24", "nsg": "AllowRDP" },
                     { "name": "outside",       "addressPrefix": "172.16.1.0/24", "nsg": "AllowSSH" },
                     { "name": "inside",       "addressPrefix": "172.16.2.0/24", "nsg": "AllowHTTPS" }
                 ]
             }
-        },
-        "dnsServerAddress": {
-            "value": [
-                "172.16.0.5",
-                "8.8.8.8"
-              ]
         },
         "nsgResourceGroup": {
             "value": "NSGs"
