@@ -14,5 +14,5 @@ Foreach ($RawDisk in $CandidateRawDisks) {
     $Disk = Initialize-Disk -PartitionStyle GPT -Number $RawDisk.Number
     $Partition = New-Partition -DiskNumber $RawDisk.Number -UseMaximumSize -AssignDriveLetter
     $Label = $LUN +1
-    $Volume = Format-Volume -Partition $Partition -FileSystem NTFS -NewFileSystemLabel "Data-$Label" -Confirm:$false
+    $Volume = Format-Volume -Partition $Partition -FileSystem NTFS -NewFileSystemLabel "datadisk0$Lun" -Confirm:$false
 }
