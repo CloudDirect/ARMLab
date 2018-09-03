@@ -5,6 +5,14 @@
         "adminUsername": {
             "value": "exadmin"
         },
+        "adminPassword": {
+            "reference": {
+                "keyVault": {
+                    "id": "/subscriptions/404422c0-743d-4459-9db0-01892d0c7348/resourceGroups/vault-rg/providers/Microsoft.KeyVault/vaults/demo-vault1"
+                },
+                "secretName": "vmadmin"
+            }
+        },
         "domainToJoin": {
             "value": "contoso.com"
         },
@@ -24,7 +32,7 @@
             "value": "2012-R2-Datacenter"
         },
         "numberofVms": {
-            "value": 4
+            "value": 5
         },
         "vmSize": {
             "value": "medium"
