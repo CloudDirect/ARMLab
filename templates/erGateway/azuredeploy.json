@@ -18,15 +18,14 @@
         },
         "gatewaySku": {
             "type": "string",
-            "defaultValue": "Basic",
+            "defaultValue": "Standard",
             "allowedValues": [
-                "Basic",
-                "VpnGw1",
-                "VpnGw2",
-                "VpnGw3"
+                "Standard",
+                "HighPerformance",
+                "UltraPerformance"
             ],
             "metadata": {
-                "description": "The SKU of the VPN gateway."
+                "description": "The SKU of the ExpressRoute gateway."
             }
         },
         "ciOwnerTag": {
@@ -65,12 +64,11 @@
         }
     },
     "variables": {
-        "gatewayName": "[concat(parameters('vnetName'), '-gateway')]",
-        "gatewayPublicIpName": "[concat(parameters('vnetName'), '-gateway-pip')]",
+        "gatewayName": "[concat(parameters('vnetName'), '-ergateway')]",
+        "gatewayPublicIpName": "[concat(parameters('vnetName'), '-ergateway-pip')]",
         "vnetId": "[resourceId(parameters('vNetResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('vnetName'))]",
         "gatewaySubnetId": "[concat(variables('vnetID'), '/subnets/GatewaySubnet')]",
-        "gatewayPipId": "[resourceId('Microsoft.Network/publicIpAddresses', variables('gatewayPublicIpName'))]",
-        "vpnType": "RouteBased"
+        "gatewayPipId": "[resourceId('Microsoft.Network/publicIpAddresses', variables('gatewayPublicIpName'))]"
     },
     "resources": [
         {
@@ -81,45 +79,8 @@
             "properties": {
                 "publicIPAllocationMethod": "Dynamic"
             }
-        },
-        {
-            "name": "[variables('gatewayName')]",
-            "type": "Microsoft.Network/virtualNetworkGateways",
-            "apiVersion": "2017-10-01",
-            "location": "[resourceGroup().location]",
-            "tags": {
-                "ciOwner": "[parameters('ciOwnerTag')]",
-                "appID": "[parameters('appIDTag')]",
-                "orgID": "[parameters('orgIDTag')]",
-                "env": "[parameters('envTag')]"
-            },
-            "dependsOn": [
-                "[concat('Microsoft.Network/publicIPAddresses/', variables('gatewayPublicIpName'))]"
-            ],
-            "properties": {
-                "ipConfigurations": [
-                    {
-                        "properties": {
-                            "privateIPAllocationMethod": "Dynamic",
-                            "subnet": {
-                                "id": "[variables('gatewaySubnetId')]"
-                            },
-                            "publicIPAddress": {
-                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('gatewayPublicIpName'))]"
-                            }
-                        },
-                        "name": "vnetGatewayConfig"
-                    }
-                ],
-                "sku": {
-                    "name": "[parameters('gatewaySku')]",
-                    "tier": "[parameters('gatewaySku')]"
-                },
-                "gatewayType": "Vpn",
-                "vpnType": "[variables('vpnType')]",
-                "enableBgp": "false"
-            }
         }
+        
     ],
     "outputs": {
         "gatewayPipId": {

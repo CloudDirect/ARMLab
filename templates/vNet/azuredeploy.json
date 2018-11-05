@@ -10,8 +10,7 @@
                 "addressPrefixes": [
                     "172.16.0.0/16"
                 ],
-                "dnsServerAddresses": [
-                ],
+                "dnsServerAddresses": [],
                 "subnets": [
                     {
                         "name": "GatewaySubnet",
@@ -65,10 +64,7 @@
                         "input": {
                             "name": "[parameters('vNet').subnets[copyIndex('subnets')].name]",
                             "properties": {
-                                "addressPrefix": "[parameters('vNet').subnets[copyIndex('subnets')].addressPrefix]",
-                                "networkSecurityGroup": {
-                                    "id": "[resourceId(parameters('nsgResourceGroup'), 'Microsoft.Network/networkSecurityGroups', parameters('vNet').subnets[copyIndex('subnets')].nsg)]"
-                                }
+                                "addressPrefix": "[parameters('vNet').subnets[copyIndex('subnets')].addressPrefix]"
                             }
                         }
                     }
