@@ -79,8 +79,43 @@
             "properties": {
                 "publicIPAllocationMethod": "Dynamic"
             }
+        },
+        {
+            "name": "[variables('gatewayName')]",
+            "type": "Microsoft.Network/virtualNetworkGateways",
+            "apiVersion": "2017-10-01",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "ciOwner": "[parameters('ciOwnerTag')]",
+                "appID": "[parameters('appIDTag')]",
+                "orgID": "[parameters('orgIDTag')]",
+                "env": "[parameters('envTag')]"
+            },
+            "dependsOn": [
+                "[concat('Microsoft.Network/publicIPAddresses/', variables('gatewayPublicIpName'))]"
+            ],
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "properties": {
+                            "privateIPAllocationMethod": "Dynamic",
+                            "subnet": {
+                                "id": "[variables('gatewaySubnetId')]"
+                            },
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('gatewayPublicIpName'))]"
+                            }
+                        },
+                        "name": "vnetGatewayConfig"
+                    }
+                ],
+                "sku": {
+                    "name": "[parameters('gatewaySku')]",
+                    "tier": "[parameters('gatewaySku')]"
+                },
+                "gatewayType": "Expressroute"
+            }
         }
-        
     ],
     "outputs": {
         "gatewayPipId": {
