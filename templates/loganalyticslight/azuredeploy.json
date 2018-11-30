@@ -17,15 +17,15 @@
           "PerNode",
           "PerGB2018"
         ],
-        "defaultValue": "Free",
+        "defaultValue": "PerGB2018",
         "metadata": {
           "description": "Service Tier: Free, Standalone, PerNode, or PerGB2018"
       }
         },
       "dataRetention": {
         "type": "int",
-        "defaultValue": 7,
-        "minValue": 7,
+        "defaultValue": 30,
+        "minValue":30,
         "maxValue": 730,
         "metadata": {
           "description": "Number of days of retention. Free plans can only have 7 days, Standalone and OMS plans include 30 days for free"
