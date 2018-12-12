@@ -65,8 +65,8 @@
         }
     },
     "variables": {
-        "gatewayName": "[concat(parameters('vnetName'), '-gateway')]",
-        "gatewayPublicIpName": "[concat(parameters('vnetName'), '-gateway-pip')]",
+        "gatewayName": "[concat(parameters('vnetName'), '-vpngateway')]",
+        "gatewayPublicIpName": "[concat(parameters('vnetName'), '-vpngateway-pip')]",
         "vnetId": "[resourceId(parameters('vNetResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('vnetName'))]",
         "gatewaySubnetId": "[concat(variables('vnetID'), '/subnets/GatewaySubnet')]",
         "gatewayPipId": "[resourceId('Microsoft.Network/publicIpAddresses', variables('gatewayPublicIpName'))]",
