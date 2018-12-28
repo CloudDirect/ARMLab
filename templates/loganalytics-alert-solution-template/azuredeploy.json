@@ -1,0 +1,244 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0",
+    "parameters": {
+      "workspaceName": {
+        "type": "string",
+        "metadata": {
+          "Description": "Name of Log Analytics workspace"
+        }
+      },
+      "workspaceregionId": {
+        "type": "string",
+        "metadata": {
+          "Description": "Region of Log Analytics workspace"
+        }
+      },
+      "actiongroup": {
+        "type": "string",
+        "metadata": {
+          "Description": "Action groups for alert actions separated by semicolon"
+        }
+      }
+    },
+    "variables": {
+      "SolutionName": "CDMonitoring",
+      "SolutionVersion": "1.0",
+      "SolutionPublisher": "Cloud Direct",
+      "ProductName": "Log Analytics Alerts",
+
+      "LogAnalyticsApiVersion-Search": "2017-03-15-preview",
+          "LogAnalyticsApiVersion-Solution": "2015-11-01-preview",
+
+      "Search1": {
+        "displayName": "Processor Performance CPU Time (5 Min)",
+        "query": "Perf | where  ObjectName == \"Processor\" and CounterName == \"% Processor Time\" and InstanceName == \"_Total\" | summarize AggregatedValue = avg(CounterValue) by Computer, bin(TimeGenerated, 5m)",
+        "category": "Cloud Direct",
+        "name": "Processor Performance"
+      },
+      "Search2": {
+        "displayName": "PERF - Memory Use",
+        "query": "Perf | where ObjectName == \"Memory\" and CounterName ==\"% Committed Bytes In Use\" | summarize AggregatedValue = avg(CounterValue) by Computer, bin(TimeGenerated, 15m)",
+        "category": "Cloud Direct",
+        "name": "Memory Performance"
+      },
+      "alert1": {
+        "Name": "[toLower(concat('processorperf-alert-',uniqueString(resourceGroup().id, deployment().name)))]",
+        "DisplayName": "PERF - Processor Performance",
+        "Description": "Alerts if processor exceeds 95% utilisation 3 consecutive times in a 30 min period",
+        "Severity": "warning",
+        "ThresholdOperator": "gt",
+        "ThresholdValue": 95,
+        "Schedule": {
+          "Name": "[toLower(concat('perfprocsched-',uniqueString(resourceGroup().id, deployment().name)))]",
+          "Interval": 5,
+          "TimeSpan": 30
+        },
+        "MetricsTrigger": {
+          "TriggerCondition": "Consecutive",
+          "Operator": "gt",
+          "Value": 3
+        },
+        "ThrottleMinutes": 240,
+        "AzNsNotification": {
+          "GroupIds": [
+            "[parameters('actiongroup')]"
+          ],
+          "CustomEmailSubject": "PERF - Processor Performance > 95%"
+        }
+      },
+      "alert2": {
+        "Name": "[toLower(concat('diskspace-alert-',uniqueString(resourceGroup().id, deployment().name)))]",
+        "DisplayName": "PERF - Memory Use",
+        "Description": "Alerts when committed byes in use percentage exceeds 95% over 15 min period",
+        "Severity": "warning",
+        "ThresholdOperator": "gt",
+        "ThresholdValue": 95,
+        "Schedule": {
+          "Name": "[toLower(concat('perfmemsched-',uniqueString(resourceGroup().id, deployment().name)))]",
+          "Interval": 30,
+          "TimeSpan": 60
+        },
+        "MetricsTrigger": {
+          "TriggerCondition": "Consecutive",
+          "Operator": "gt",
+          "Value": 3
+        },
+        "ThrottleMinutes": 240,
+        "AzNsNotification": {
+          "GroupIds": [
+            "[parameters('actiongroup')]"
+          ],
+          "CustomEmailSubject": "PERF - Memory Use > 95%"
+        }
+      }
+    },
+    "resources": [
+      {
+        "name": "[concat(variables('SolutionName'), '[' ,parameters('workspacename'), ']')]",
+        "location": "[parameters('workspaceRegionId')]",
+        "tags": { },
+        "type": "Microsoft.OperationsManagement/solutions",
+        "apiVersion": "[variables('LogAnalyticsApiVersion-Solution')]",
+        "dependsOn": [
+          "[resourceId('Microsoft.OperationalInsights/workspaces/savedSearches', parameters('workspacename'), variables('Search1').name)]",
+          "[resourceId('Microsoft.OperationalInsights/workspaces/savedSearches/schedules', parameters('workspacename'), variables('Search1').name, variables('alert1').Schedule.Name)]",
+          "[resourceId('Microsoft.OperationalInsights/workspaces/savedSearches/schedules/actions', parameters('workspacename'), variables('Search1').name, variables('alert1').Schedule.Name, variables('alert1').Name)]"
+        ],
+        "properties": {
+          "workspaceResourceId": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('workspacename'))]",
+          "referencedResources": [
+          ],
+          "containedResources": [
+            "[resourceId('Microsoft.OperationalInsights/workspaces/savedSearches', parameters('workspacename'), variables('Search1').name)]",
+            "[resourceId('Microsoft.OperationalInsights/workspaces/savedSearches/schedules', parameters('workspacename'), variables('Search1').name, variables('alert1').Schedule.Name)]",
+            "[resourceId('Microsoft.OperationalInsights/workspaces/savedSearches/schedules/actions', parameters('workspacename'), variables('Search1').name, variables('alert1').Schedule.Name, variables('alert1').Name)]"
+          ]
+        },
+        "plan": {
+          "name": "[concat(variables('SolutionName'), '[' ,parameters('workspaceName'), ']')]",
+          "Version": "[variables('SolutionVersion')]",
+          "product": "[variables('ProductName')]",
+          "publisher": "[variables('SolutionPublisher')]",
+          "promotionCode": ""
+        }
+      },
+      {
+        "name": "[concat(parameters('workspaceName'), '/', variables('Search1').name)]",
+        "type": "Microsoft.OperationalInsights/workspaces/savedSearches",
+        "apiVersion": "[variables('LogAnalyticsApiVersion-Search')]",
+        "dependsOn": [ ],
+        "tags": { },
+        "properties": {
+          "etag": "*",
+          "query": "[variables('Search1').query]",
+          "displayName": "[variables('Search1').displayName]",
+          "category": "[variables('Search1').category]"
+        }
+      },
+      {
+        "name": "[concat(parameters('workspaceName'), '/', variables('Search1').name, '/', variables('alert1').Schedule.Name)]",
+        "type": "Microsoft.OperationalInsights/workspaces/savedSearches/schedules/",
+        "apiVersion": "[variables('LogAnalyticsApiVersion-Search')]",
+        "dependsOn": [
+          "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'), '/savedSearches/', variables('Search1').name)]"
+        ],
+        "properties": {
+          "etag": "*",
+          "interval": "[variables('alert1').Schedule.Interval]",
+          "queryTimeSpan": "[variables('alert1').Schedule.TimeSpan]",
+          "enabled": true
+        }
+      },
+      {
+        "name": "[concat(parameters('workspaceName'), '/', variables('Search1').name, '/',  variables('alert1').Schedule.Name, '/',  variables('alert1').Name)]",
+        "type": "Microsoft.OperationalInsights/workspaces/savedSearches/schedules/actions",
+        "apiVersion": "[variables('LogAnalyticsApiVersion-Search')]",
+        "dependsOn": [
+          "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'), '/savedSearches/',  variables('Search1').name, '/schedules/', variables('alert1').Schedule.Name)]"
+        ],
+        "properties": {
+          "etag": "*",
+          "Type": "Alert",
+          "Name": "[variables('alert1').DisplayName]",
+          "Description": "[variables('alert1').Description]",
+          "Severity": "[variables('alert1').Severity]",
+          "Threshold": {
+            "Operator": "[variables('alert1').ThresholdOperator]",
+            "Value": "[variables('alert1').ThresholdValue]",
+            "MetricsTrigger": {
+              "TriggerCondition": "[variables('alert1').MetricsTrigger.TriggerCondition]",
+              "Operator": "[variables('alert1').MetricsTrigger.Operator]",
+              "Value": "[variables('alert1').MetricsTrigger.Value]"
+            }
+          },
+          "Throttling": {
+            "DurationInMinutes": "[variables('alert1').ThrottleMinutes]"
+          },
+        "AzNsNotification": {
+          "GroupIds": "[variables('alert1').AzNsNotification.GroupIds]",
+          "CustomEmailSubject": "[variables('alert1').AzNsNotification.CustomEmailSubject]"
+        }             
+        }
+      },
+      {
+        "name": "[concat(parameters('workspaceName'), '/', variables('Search2').name)]",
+        "type": "Microsoft.OperationalInsights/workspaces/savedSearches",
+        "apiVersion": "[variables('LogAnalyticsApiVersion-Search')]",
+        "dependsOn": [ ],
+        "tags": { },
+        "properties": {
+          "etag": "*",
+          "query": "[variables('Search2').query]",
+          "displayName": "[variables('Search2').displayName]",
+          "category": "[variables('Search2').category]"
+        }
+      },
+      {
+        "name": "[concat(parameters('workspaceName'), '/', variables('Search2').name, '/', variables('alert2').Schedule.Name)]",
+        "type": "Microsoft.OperationalInsights/workspaces/savedSearches/schedules/",
+        "apiVersion": "[variables('LogAnalyticsApiVersion-Search')]",
+        "dependsOn": [
+          "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'), '/savedSearches/', variables('Search2').name)]"
+        ],
+        "properties": {
+          "etag": "*",
+          "interval": "[variables('alert2').Schedule.Interval]",
+          "queryTimeSpan": "[variables('alert2').Schedule.TimeSpan]",
+          "enabled": true
+        }
+      },
+      {
+        "name": "[concat(parameters('workspaceName'), '/', variables('Search2').name, '/',  variables('alert2').Schedule.Name, '/',  variables('alert2').Name)]",
+        "type": "Microsoft.OperationalInsights/workspaces/savedSearches/schedules/actions",
+        "apiVersion": "[variables('LogAnalyticsApiVersion-Search')]",
+        "dependsOn": [
+          "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'), '/savedSearches/',  variables('Search2').name, '/schedules/', variables('alert2').Schedule.Name)]"
+        ],
+        "properties": {
+          "etag": "*",
+          "Type": "Alert",
+          "Name": "[variables('alert2').DisplayName]",
+          "Description": "[variables('alert2').Description]",
+          "Severity": "[variables('alert2').Severity]",
+          "Threshold": {
+            "Operator": "[variables('alert2').ThresholdOperator]",
+            "Value": "[variables('alert2').ThresholdValue]",
+            "MetricsTrigger": {
+              "TriggerCondition": "[variables('alert2').MetricsTrigger.TriggerCondition]",
+              "Operator": "[variables('alert2').MetricsTrigger.Operator]",
+              "Value": "[variables('alert2').MetricsTrigger.Value]"
+            }
+          },
+          "Throttling": {
+            "DurationInMinutes": "[variables('alert2').ThrottleMinutes]"
+          },
+        "AzNsNotification": {
+          "GroupIds": "[variables('alert2').AzNsNotification.GroupIds]",
+          "CustomEmailSubject": "[variables('alert2').AzNsNotification.CustomEmailSubject]"
+        }             
+        }
+      }
+
+    ]
+}
