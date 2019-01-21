@@ -9,7 +9,7 @@
         "value": "Triggers an alert every 24 hours for each server missing critical updates - will exclude any servers that already have an open incident"
       },
       "AppInsightsName": {
-        "value": "LH-Monitoring-WS"
+        "value": "Whiteskies-Monitoring-WS"
       },
       "TriggerThresholdOperator": {
         "value": "GreaterThan"
@@ -27,7 +27,7 @@
         "value": "3"
       },
       "actionGroupName": {
-        "value": "SNConnector"
+        "value": "ITSM-AG"
       },
       "AppInsightsQuery": {
         "value": "Update | where UpdateState == 'Needed' and Optional == false and Classification == 'Security Updates' and Approved != false | summarize AggregatedValue = count() by Computer"

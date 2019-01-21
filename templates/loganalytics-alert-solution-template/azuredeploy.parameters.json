@@ -1,0 +1,15 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "workspaceName": {
+        "value": "Whiteskies-Monitoring-WS"
+      },
+      "workspaceregionId": {
+        "value": "UK South"
+      },
+      "actiongroup": {
+        "value": "/subscriptions/d62609ea-45b5-4408-9f00-6693badaa0e7/resourceGroups/cd-monitoring-rg/providers/microsoft.insights/actiongroups/OMS-Alert2SN-AG"
+      }
+    }
+  }

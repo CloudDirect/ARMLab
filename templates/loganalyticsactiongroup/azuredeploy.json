@@ -4,32 +4,18 @@
     "parameters": {
       "actionGroupName": {
         "type": "string",
-        "defaultValue": "SNConnector",
+        "defaultValue": "OMS-Alert2SN-AG",
         "metadata": {
           "description": "Unique name (within the Resource Group) for the Action group."
         }
       },
       "actionGroupShortName": {
         "type": "string",
-        "defaultValue": "SNC",
+        "defaultValue": "OMSALERT2SN",
         "metadata": {
           "description": "Short name (maximum 12 characters) for the Action group."
         }
-      },
-      "webhookReceiverName": {
-        "type": "string",
-        "defaultValue": "CreateTicket",
-        "metadata": {
-          "description": "Webhook receiver service Name."
-        }
-      },    
-      "webhookServiceUri": {
-        "type": "string",
-        "defaultValue": "https://prod-25.uksouth.logic.azure.com:443/workflows/f6ba3c0a465b459ca0ae864a6375cd53/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=LtvSBYbCplprfyWG8Jn9753am-K52guOAggNe6HYVEU",
-         "metadata": {
-          "description": "Webhook receiver service URI."
-        }
-      }    
+      }
     },
     "resources": [
       {
@@ -40,21 +26,23 @@
         "properties": {
           "groupShortName": "[parameters('actionGroupShortName')]",
           "enabled": true,
-          "smsReceivers": [
-          ],
           "emailReceivers": [
+            {
+              "name": "EmailPDS",
+              "emailAddress": "paul.sells@clouddirect.net"
+            }
           ],
           "webhookReceivers": [
             {
-              "name": "[parameters('webhookReceiverName')]",
-              "serviceUri": "[parameters('webhookServiceUri')]"
+              "name": "Alert2SN-Live",
+              "serviceUri": "https://prod-25.uksouth.logic.azure.com:443/workflows/f6ba3c0a465b459ca0ae864a6375cd53/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=LtvSBYbCplprfyWG8Jn9753am-K52guOAggNe6HYVEU"
             }
           ]
         }
       }
     ],
     "outputs":{
-        "actionGroupResourceId":{
+        "actionGroupId":{
             "type":"string",
             "value":"[resourceId('Microsoft.Insights/actionGroups',parameters('actionGroupName'))]"
         }
