@@ -176,7 +176,6 @@
             "version": "latest"
         },
         "imageReference": "[variables(concat(parameters('osType'), 'ImageReference'))]",
-        "vm": "[variables(concat(parameters('vmSize'), 'Vm'))]",
         "vnetID": "[resourceId(parameters('vnetResourceGroup'), 'Microsoft.Network/virtualNetworks/', parameters('vnetName'))]",
         "availabilitysetID": "[resourceId(parameters('vmResourceGroup'), 'Microsoft.Compute/availabilitySets/', parameters('vmResourceGroup'))]",
         "subnetRef": "[concat(variables('vnetID'), '/subnets/', parameters('subnetName'))]",
@@ -242,7 +241,7 @@
             ],
             "properties": {
                 "hardwareProfile": {
-                    "vmSize": "[variables('vm').size]"
+                    "vmSize": "[parameters('vmsize')]"
                 },
                 "osProfile": {
                     "computerName": "[concat(variables('vmName'), copyIndex(1))]",
