@@ -274,6 +274,7 @@
             },
             "copy": {
                 "name": "virtualMachineCopy",
+                "mode":"Serial",
                 "count": "[parameters('numberOfVms')]"
             }
         }
