@@ -181,7 +181,7 @@
         "subnetRef": "[concat(variables('vnetID'), '/subnets/', parameters('subnetName'))]",
         "vmName": "[concat(parameters('vmPrefix'), '-')]",
         "storageAccountType": "Standard_LRS",
-        "storageAccountName": "[toLower(concat('bd', parameters('subnetName'), uniquestring(resourceGroup().id)))]"
+        "storageAccountName": "[toLower(concat(parameters('subnetName'),'logs', uniquestring(resourceGroup().id)))]"
     },
     "resources": [
         {
