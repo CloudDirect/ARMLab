@@ -181,7 +181,7 @@
         "subnetRef": "[concat(variables('vnetID'), '/subnets/', parameters('subnetName'))]",
         "vmName": "[concat(parameters('vmPrefix'), '-')]",
         "storageAccountType": "Standard_LRS",
-        "storageAccountName": "[toLower(concat(parameters('subnetName'),'logs', uniquestring(resourceGroup().id)))]"
+        "storageAccountName": "[toLower(concat(parameters('subnetName'), uniquestring(resourceGroup().id)))]"
     },
     "resources": [
         {
@@ -274,7 +274,7 @@
             },
             "copy": {
                 "name": "virtualMachineCopy",
-                "mode":"Serial",
+                "mode": "Serial",
                 "count": "[parameters('numberOfVms')]"
             }
         }
