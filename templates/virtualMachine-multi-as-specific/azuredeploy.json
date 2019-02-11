@@ -1,0 +1,282 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "adminUsername": {
+            "type": "string",
+            "metadata": {
+                "description": "User name for the Virtual Machine."
+            }
+        },
+        "adminPassword": {
+            "type": "securestring",
+            "metadata": {
+                "description": "Password for the Virtual Machine."
+            }
+        },
+        "numberOfVms": {
+            "type": "int",
+            "defaultValue": 3,
+            "metadata": {
+                "description": "Number of VMs per tier"
+            }
+        },
+        "vmPrefix": {
+            "type": "string",
+            "metadata": {
+                "description": "Prefix for the VMs"
+            },
+            "defaultValue": "myVm"
+        },
+        "vmSize": {
+            "type": "string",
+            "defaultValue": "Standard_D2s_v3 ",
+            "metadata": {
+                "description": "Size for the virtual machines"
+            }
+        },
+        "avset": {
+            "type": "string",
+            "minLength": 1,
+            "metadata": {
+                "description": "availability set name"
+            }
+        },
+        "windowsOSVersion": {
+            "type": "string",
+            "defaultValue": "2016-Datacenter",
+            "allowedValues": [
+                "2016-Datacenter",
+                "2012-R2-Datacenter",
+                "2012-Datacenter",
+                "2008-R2-SP1"
+            ],
+            "metadata": {
+                "description": "The Windows version for the VM. This will pick a fully patched image of this given Windows version."
+            }
+        },
+        "ubuntuOSVersion": {
+            "type": "string",
+            "defaultValue": "18.04-LTS",
+            "allowedValues": [
+                "14.04.5-LTS",
+                "16.04-LTS",
+                "17.10",
+                "18.04-LTS"
+            ],
+            "metadata": {
+                "description": "The Ubuntu version for the VM. This will pick a fully patched image of this given Ubuntu version."
+            }
+        },
+        "redhatOSVersion": {
+            "type": "string",
+            "defaultValue": "7.4",
+            "allowedValues": [
+                "7.4",
+                "7.3",
+                "6.9",
+                "6.8"
+            ],
+            "metadata": {
+                "description": "The Red Hat version for the VM. This will pick a fully patched image of this given Red Hat version."
+            }
+        },
+        "osType": {
+            "type": "string",
+            "allowedValues": [
+                "windows",
+                "ubuntu",
+                "redhat"
+            ],
+            "defaultValue": "windows",
+            "metadata": {
+                "description": "High level control for OS type"
+            }
+        },
+        "vnetName": {
+            "type": "string",
+            "defaultValue": "core",
+            "metadata": {
+                "description": "Name of the virtual network"
+            }
+        },
+        "subnetName": {
+            "type": "string",
+            "defaultValue": "web",
+            "metadata": {
+                "description": "Name of the subnet"
+            }
+        },
+        "vnetResourceGroup": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().name]",
+            "metadata": {
+                "description": "Resource group for the virtual network"
+            }
+        },
+        "vmResourceGroup": {
+            "type": "string",
+            "defaultValue": "demo-infra-rg",
+            "metadata": {
+                "description": "Resource Group for infrastructure resources"
+            }
+        },
+        "ciOwnerTag": {
+            "type": "string",
+            "minLength": 1,
+            "metadata": {
+                "description": "Configuration Item Owner tag for the Virtual Machine."
+            }
+        },
+        "appIDTag": {
+            "type": "string",
+            "minLength": 1,
+            "metadata": {
+                "description": "Application ID tag for the Virtual Machine."
+            }
+        },
+        "orgIDTag": {
+            "type": "string",
+            "minLength": 1,
+            "metadata": {
+                "description": "Organisation ID tag for the Virtual Machine."
+            }
+        },
+        "envTag": {
+            "type": "string",
+            "minLength": 1,
+            "allowedValues": [
+                "dev",
+                "test",
+                "prod",
+                "unspecified"
+            ],
+            "metadata": {
+                "description": "Environment tag for the Virtual Machine."
+            }
+        }
+    },
+    "variables": {
+        "windowsImageReference": {
+            "publisher": "MicrosoftWindowsServer",
+            "offer": "WindowsServer",
+            "sku": "[parameters('windowsOSVersion')]",
+            "version": "latest"
+        },
+        "ubuntuImageReference": {
+            "publisher": "Canonical",
+            "offer": "UbuntuServer",
+            "sku": "[parameters('ubuntuOSVersion')]",
+            "version": "latest"
+        },
+        "redhatImageReference": {
+            "publisher": "RedHat",
+            "offer": "RHEL",
+            "sku": "[parameters('redhatOSVersion')]",
+            "version": "latest"
+        },
+        "imageReference": "[variables(concat(parameters('osType'), 'ImageReference'))]",
+        "vnetID": "[resourceId(parameters('vnetResourceGroup'), 'Microsoft.Network/virtualNetworks/', parameters('vnetName'))]",
+        "availabilitysetID": "[resourceId(parameters('vmResourceGroup'), 'Microsoft.Compute/availabilitySets/', parameters('vmResourceGroup'))]",
+        "subnetRef": "[concat(variables('vnetID'), '/subnets/', parameters('subnetName'))]",
+        "vmName": "[concat(parameters('vmPrefix'), '-')]",
+        "storageAccountType": "Standard_LRS",
+        "storageAccountName": "[toLower (concat('diaglogs', uniquestring(resourceGroup().id)))]"
+    },
+    "resources": [
+        {
+            "name": "[variables('storageAccountName')]",
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2017-06-01",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "[variables('storageAccountType')]"
+            },
+            "kind": "Storage",
+            "properties": {}
+        },
+        {
+            "name": "[concat(variables('vmName'), padleft (copyIndex(1),3,'0'), '-nic')]",
+            "type": "Microsoft.Network/networkInterfaces",
+            "apiVersion": "2017-06-01",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "ciOwner": "[parameters('ciOwnerTag')]",
+                "appID": "[parameters('appIDTag')]",
+                "orgID": "[parameters('orgIDTag')]",
+                "env": "[parameters('envTag')]"
+            },
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAllocationMethod": "Dynamic",
+                            "subnet": {
+                                "id": "[variables('subnetRef')]"
+                            }
+                        }
+                    }
+                ]
+            },
+            "copy": {
+                "name": "nicCopy",
+                "count": "[parameters('numberOfVms')]"
+            }
+        },
+        {
+            "name": "[concat(variables('vmName'), padleft (copyIndex(1),3,'0'))]",
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2017-03-30",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "ciOwner": "[parameters('ciOwnerTag')]",
+                "appID": "[parameters('appIDTag')]",
+                "orgID": "[parameters('orgIDTag')]",
+                "env": "[parameters('envTag')]"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
+                "nicCopy"
+            ],
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "[parameters('vmsize')]"
+                },
+                "osProfile": {
+                    "computerName": "[concat(variables('vmName'), padleft (copyIndex(1),3,'0'))]",
+                    "adminUsername": "[parameters('adminUsername')]",
+                    "adminPassword": "[parameters('adminPassword')]"
+                },
+                "storageProfile": {
+                    "imageReference": "[variables('imageReference')]",
+                    "osDisk": {
+                        "name": "[concat(variables('vmName'), padleft (copyIndex(1),3,'0'), '-osDisk')]",
+                        "createOption": "FromImage"
+                    }
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('vmName'),padleft (copyIndex(1),3,'0'),'-nic'))]"
+                        }
+                    ]
+                },
+                "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": true,
+                        "storageUri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName')), '2016-01-01').primaryEndpoints.blob)]"
+                    }
+                },
+                "availabilitySet": {
+                    "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('avset'))]"
+                }
+            },
+            "copy": {
+                "name": "virtualMachineCopy",
+                "count": "[parameters('numberOfVms')]"
+            }
+        }
+    ],
+    "outputs": {}
+}
