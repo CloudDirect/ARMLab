@@ -1,0 +1,89 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "actionGroups_name": {
+            "type": "String"
+        },
+        "activityLogAlerts_name": {
+            "type": "String"
+        },
+        "emailAddress":{
+            "type":"string"
+        },
+        "uri":{
+            "type":"string"
+        }
+    },
+    "variables": {
+        "alertScope":"[concat('/','subscriptions','/',subscription().subscriptionId)]"
+    },
+    "resources": [
+        {
+            "comments": "Action Group",
+            "type": "microsoft.insights/actionGroups",
+            "name": "[parameters('actionGroups_name')]",
+            "apiVersion": "2017-04-01",
+            "location": "Global",
+            "tags": {},
+            "scale": null,
+            "properties": {
+                "groupShortName": "[parameters('actionGroups_name')]",
+                "enabled": true,
+                "emailReceivers": [
+                    {
+                        "name": "Email",
+                        "emailAddress": "[parameters('emailAddress')]"
+                    }
+                ],
+                "smsReceivers": [],
+                "webhookReceivers": [
+                    {
+                        "name": "Webhook",
+                        "serviceUri": "[parameters('uri')]"
+                    }
+                ]
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Service Health Activity Log Alert",
+            "type": "microsoft.insights/activityLogAlerts",
+            "name": "[parameters('activityLogAlerts_name')]",
+            "apiVersion": "2017-04-01",
+            "location": "Global",
+            "tags": {},
+            "scale": null,
+            "properties": {
+                "scopes": [
+                    "[variables('alertScope')]"
+                ],
+                "condition": {
+                    "allOf": [
+                        {
+                            "field": "category",
+                            "equals": "ServiceHealth"
+                        },
+                        {
+                            "field": "properties.incidentType",
+                            "equals": "Incident"
+                        }
+                    ]
+                },
+                "actions": {
+                    "actionGroups": [
+                        {
+                            "actionGroupId": "[resourceId('microsoft.insights/actionGroups', parameters('actionGroups_name'))]",
+                            "webhookProperties": {}
+                        }
+                    ]
+                },
+                "enabled": true,
+                "description": ""
+            },
+            "dependsOn": [
+                "[resourceId('microsoft.insights/actionGroups', parameters('actionGroups_name'))]"
+            ]
+        }
+    ]
+}
