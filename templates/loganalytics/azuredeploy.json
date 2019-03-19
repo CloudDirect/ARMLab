@@ -75,6 +75,34 @@
     "AlertManagement": {
       "Name": "[Concat('AlertManagement', '(', parameters('workspaceName'), ')')]",
       "GalleryName": "AlertManagement"
+    },
+    "SecurityCenterFree": {
+      "Name": "[Concat('SecurityCenterFree', '(', parameters('workspaceName'), ')')]",
+      "GalleryName": "SecurityCenterFree"
+    },
+    "ADAssessment": {
+      "Name": "[Concat('ADAssessment', '(', parameters('workspaceName'), ')')]",
+      "GalleryName": "ADAssessment"
+    },
+    "AgentHealthAssessment": {
+      "Name": "[Concat('AgentHealthAssessment', '(', parameters('workspaceName'), ')')]",
+      "GalleryName": "AgentHealthAssessment"
+    },
+    "AzureAutomation": {
+      "Name": "[Concat('AzureAutomation', '(', parameters('workspaceName'), ')')]",
+      "GalleryName": "AzureAutomation"
+    },
+    "AzureSQLAnalytics": {
+      "Name": "[Concat('AzureSQLAnalytics', '(', parameters('workspaceName'), ')')]",
+      "GalleryName": "AzureSQLAnalytics"
+    },
+    "AzureWebAppsAnalytics": {
+      "Name": "[Concat('AzureWebAppsAnalytics', '(', parameters('workspaceName'), ')')]",
+      "GalleryName": "AzureWebAppsAnalytics"
+    },
+    "ChangeTracking": {
+      "Name": "[Concat('ChangeTracking', '(', parameters('workspaceName'), ')')]",
+      "GalleryName": "ChangeTracking"
     }
   },
   "resources": [
@@ -196,7 +224,7 @@
           "properties": {
             "objectName": "Memory",
             "instanceName": "*",
-            "intervalSeconds": 10,
+            "intervalSeconds": 60,
             "counterName": "Available MBytes"
           }
         },
@@ -211,7 +239,7 @@
           "properties": {
             "objectName": "Memory",
             "instanceName": "*",
-            "intervalSeconds": 10,
+            "intervalSeconds": 60,
             "counterName": "Committed Bytes In Use"
           }
         },
@@ -226,7 +254,7 @@
           "properties": {
             "objectName": "Memory",
             "instanceName": "*",
-            "intervalSeconds": 10,
+            "intervalSeconds": 60,
             "counterName": "% Committed Bytes In Use"
           }
         },
@@ -241,7 +269,7 @@
           "properties": {
             "objectName": "Processor",
             "instanceName": "*",
-            "intervalSeconds": 10,
+            "intervalSeconds": 60,
             "counterName": "Processor Time"
           }
         },
@@ -256,7 +284,7 @@
           "properties": {
             "objectName": "System",
             "instanceName": "*",
-            "intervalSeconds": 10,
+            "intervalSeconds": 60,
             "counterName": "Processor Queue Length"
           }
         },
@@ -271,7 +299,7 @@
           "properties": {
             "objectName": "LogicalDisk",
             "instanceName": "*",
-            "intervalSeconds": 10,
+            "intervalSeconds": 60,
             "counterName": "Free Space"
           }
         },
@@ -286,7 +314,7 @@
           "properties": {
             "objectName": "LogicalDisk",
             "instanceName": "*",
-            "intervalSeconds": 10,
+            "intervalSeconds": 60,
             "counterName": "Avg. Disk sec/Read"
           }
         },
@@ -301,7 +329,7 @@
           "properties": {
             "objectName": "LogicalDisk",
             "instanceName": "*",
-            "intervalSeconds": 10,
+            "intervalSeconds": 60,
             "counterName": "Avg. Disk sec/Write"
           }
         },
@@ -316,7 +344,7 @@
           "properties": {
             "objectName": "LogicalDisk",
             "instanceName": "*",
-            "intervalSeconds": 10,
+            "intervalSeconds": 60,
             "counterName": "Current Disk Queue Length"
           }
         },
@@ -331,7 +359,7 @@
           "properties": {
             "objectName": "LogicalDisk",
             "instanceName": "*",
-            "intervalSeconds": 10,
+            "intervalSeconds": 60,
             "counterName": "Disk Reads/sec"
           }
         },
@@ -346,7 +374,7 @@
           "properties": {
             "objectName": "LogicalDisk",
             "instanceName": "*",
-            "intervalSeconds": 10,
+            "intervalSeconds": 60,
             "counterName": "Disk Transfers/sec"
           }
         },
@@ -361,7 +389,7 @@
           "properties": {
             "objectName": "LogicalDisk",
             "instanceName": "*",
-            "intervalSeconds": 10,
+            "intervalSeconds": 60,
             "counterName": "Disk Writes/sec"
           }
         },
@@ -376,7 +404,7 @@
           "properties": {
             "objectName": "LogicalDisk",
             "instanceName": "*",
-            "intervalSeconds": 10,
+            "intervalSeconds": 60,
             "counterName": "Free Megabytes"
           }
         },
@@ -391,7 +419,7 @@
           "properties": {
             "objectName": "Network Adapter",
             "instanceName": "*",
-            "intervalSeconds": 10,
+            "intervalSeconds": 60,
             "counterName": "Bytes Received/sec"
           }
         },
@@ -406,7 +434,7 @@
           "properties": {
             "objectName": "Network Adapter",
             "instanceName": "*",
-            "intervalSeconds": 10,
+            "intervalSeconds": 60,
             "counterName": "Bytes Sent/sec"
           }
         },
@@ -421,7 +449,7 @@
           "properties": {
             "objectName": "Network Interface",
             "instanceName": "*",
-            "intervalSeconds": 10,
+            "intervalSeconds": 60,
             "counterName": "Bytes Total/sec"
           }
         },
@@ -436,7 +464,7 @@
           "properties": {
             "objectName": "LogicalDisk",
             "instanceName": "*",
-            "intervalSeconds": 10,
+            "intervalSeconds": 60,
             "counterName": "% Free Space"
           }
         },
@@ -451,7 +479,7 @@
           "properties": {
             "objectName": "Processor",
             "instanceName": "*",
-            "intervalSeconds": 10,
+            "intervalSeconds": 60,
             "counterName": "% Processor Time"
           }
         },
@@ -561,7 +589,7 @@
             ],
             "objectName": "Processor",
             "instanceName": "*",
-            "intervalSeconds": 10
+            "intervalSeconds": 60
           }
         },
         {
@@ -706,6 +734,139 @@
             "name": "[variables('ApplicationInsights').Name]",
             "publisher": "Microsoft",
             "product": "[Concat('OMSGallery/', variables('ApplicationInsights').GalleryName)]",
+            "promotionCode": ""
+          }
+        },
+        {
+          "apiVersion": "2015-11-01-preview",
+          "location": "[parameters('location')]",
+          "name": "[variables('ADAssessment').Name]",
+          "type": "Microsoft.OperationsManagement/solutions",
+          "id": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.OperationsManagement/solutions/', variables('ADAssessment').Name)]",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
+          ],
+          "properties": {
+            "workspaceResourceId": "[resourceId('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
+          },
+          "plan": {
+            "name": "[variables('ADAssessment').Name]",
+            "publisher": "Microsoft",
+            "product": "[Concat('OMSGallery/', variables('ADAssessment').GalleryName)]",
+            "promotionCode": ""
+          }
+        },
+        {
+          "apiVersion": "2015-11-01-preview",
+          "location": "[parameters('location')]",
+          "name": "[variables('AgentHealthAssessment').Name]",
+          "type": "Microsoft.OperationsManagement/solutions",
+          "id": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.OperationsManagement/solutions/', variables('AgentHealthAssessment').Name)]",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
+          ],
+          "properties": {
+            "workspaceResourceId": "[resourceId('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
+          },
+          "plan": {
+            "name": "[variables('AgentHealthAssessment').Name]",
+            "publisher": "Microsoft",
+            "product": "[Concat('OMSGallery/', variables('AgentHealthAssessment').GalleryName)]",
+            "promotionCode": ""
+          }
+        },
+        {
+          "apiVersion": "2015-11-01-preview",
+          "location": "[parameters('location')]",
+          "name": "[variables('AzureAutomation').Name]",
+          "type": "Microsoft.OperationsManagement/solutions",
+          "id": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.OperationsManagement/solutions/', variables('AzureAutomation').Name)]",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
+          ],
+          "properties": {
+            "workspaceResourceId": "[resourceId('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
+          },
+          "plan": {
+            "name": "[variables('AzureAutomation').Name]",
+            "publisher": "Microsoft",
+            "product": "[Concat('OMSGallery/', variables('AzureAutomation').GalleryName)]",
+            "promotionCode": ""
+          }
+        },
+        {
+          "apiVersion": "2015-11-01-preview",
+          "location": "[parameters('location')]",
+          "name": "[variables('AzureSQLAnalytics').Name]",
+          "type": "Microsoft.OperationsManagement/solutions",
+          "id": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.OperationsManagement/solutions/', variables('AzureSQLAnalytics').Name)]",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
+          ],
+          "properties": {
+            "workspaceResourceId": "[resourceId('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
+          },
+          "plan": {
+            "name": "[variables('AzureSQLAnalytics').Name]",
+            "publisher": "Microsoft",
+            "product": "[Concat('OMSGallery/', variables('AzureSQLAnalytics').GalleryName)]",
+            "promotionCode": ""
+          }
+        },
+        {
+          "apiVersion": "2015-11-01-preview",
+          "location": "[parameters('location')]",
+          "name": "[variables('AzureWebAppsAnalytics').Name]",
+          "type": "Microsoft.OperationsManagement/solutions",
+          "id": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.OperationsManagement/solutions/', variables('AzureWebAppsAnalytics').Name)]",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
+          ],
+          "properties": {
+            "workspaceResourceId": "[resourceId('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
+          },
+          "plan": {
+            "name": "[variables('AzureWebAppsAnalytics').Name]",
+            "publisher": "Microsoft",
+            "product": "[Concat('OMSGallery/', variables('AzureWebAppsAnalytics').GalleryName)]",
+            "promotionCode": ""
+          }
+        },
+        {
+          "apiVersion": "2015-11-01-preview",
+          "location": "[parameters('location')]",
+          "name": "[variables('ChangeTracking').Name]",
+          "type": "Microsoft.OperationsManagement/solutions",
+          "id": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.OperationsManagement/solutions/', variables('ChangeTracking').Name)]",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
+          ],
+          "properties": {
+            "workspaceResourceId": "[resourceId('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
+          },
+          "plan": {
+            "name": "[variables('ChangeTracking').Name]",
+            "publisher": "Microsoft",
+            "product": "[Concat('OMSGallery/', variables('ChangeTracking').GalleryName)]",
+            "promotionCode": ""
+          }
+        },
+        {
+          "apiVersion": "2015-11-01-preview",
+          "location": "[parameters('location')]",
+          "name": "[variables('SecurityCenterFree').Name]",
+          "type": "Microsoft.OperationsManagement/solutions",
+          "id": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.OperationsManagement/solutions/', variables('SecurityCenterFree').Name)]",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
+          ],
+          "properties": {
+            "workspaceResourceId": "[resourceId('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
+          },
+          "plan": {
+            "name": "[variables('SecurityCenterFree').Name]",
+            "publisher": "Microsoft",
+            "product": "[Concat('OMSGallery/', variables('SecurityCenterFree').GalleryName)]",
             "promotionCode": ""
           }
         },
