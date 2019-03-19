@@ -1,0 +1,258 @@
+{
+    "__metadata": {},
+    "value": [
+       
+        {
+            "id": "subscriptions/83582133-2d1a-4370-abe5-159a1776bd52/resourceGroups/uk3-citrix-infra-rg/providers/Microsoft.OperationalInsights/workspaces/fnc-techcomp-ws/savedSearches/4bcea0f5-87dd-4fac-9513-afa4fe09094f",
+            "etag": "W/\"datetime'2019-02-22T12%3A02%3A55.3415262Z'\"",
+            "properties": {
+                "Category": "AlertIbiza",
+                "DisplayName": "PRO - Active Threat Detected",
+                "Query": "ProtectionStatus| where ProtectionStatus == \"Threat Detected\" and ThreatStatus ==\"Active\"",
+                "Version": 2
+            },
+            "name": "4bcea0f5-87dd-4fac-9513-afa4fe09094f"
+        },
+        
+        
+        {
+            "id": "subscriptions/83582133-2d1a-4370-abe5-159a1776bd52/resourceGroups/uk3-citrix-infra-rg/providers/Microsoft.OperationalInsights/workspaces/fnc-techcomp-ws/savedSearches/5ee13058-1843-416b-8ca6-b58bcb2a1f75",
+            "etag": "W/\"datetime'2019-02-22T11%3A57%3A02.3468056Z'\"",
+            "properties": {
+                "Category": "AlertIbiza",
+                "DisplayName": "EVT - Azure Backup Job Failed",
+                "Query": "AzureDiagnostics|  where Category ==\"AzureBackupReport\" and JobOperation_s == \"Backup\" and JobFailureCode_s != \"Success\" | project TimeGenerated, JobStartDateTime_s, BackupItemUniqueId_s, JobStatus_s, JobFailureCode_s",
+                "Version": 2
+            },
+            "name": "5ee13058-1843-416b-8ca6-b58bcb2a1f75"
+        },
+       
+       
+        {
+            "id": "subscriptions/83582133-2d1a-4370-abe5-159a1776bd52/resourceGroups/uk3-citrix-infra-rg/providers/Microsoft.OperationalInsights/workspaces/fnc-techcomp-ws/savedSearches/8b303547-1078-46e5-96e2-46196f8acaa7",
+            "etag": "W/\"datetime'2019-02-22T08%3A55%3A51.5430692Z'\"",
+            "properties": {
+                "Category": "AlertIbiza",
+                "DisplayName": "EVT - Blue Screen or Shutdown",
+                "Query": "search * | where Type == \"Event\" | where EventID==\"1001\" or EventID==\"6008\" | where EventLevelName==\"Error\" | project Computer, RenderedDescription, SourceSystem, TimeGenerated, Type, Source, EventLog, EventLevelName",
+                "FunctionAlias": "",
+                "Version": 2
+            },
+            "name": "8b303547-1078-46e5-96e2-46196f8acaa7"
+        },
+
+
+
+        {
+            "id": "subscriptions/83582133-2d1a-4370-abe5-159a1776bd52/resourceGroups/uk3-citrix-infra-rg/providers/Microsoft.OperationalInsights/workspaces/fnc-techcomp-ws/savedSearches/949297fd-5fe9-4795-afcc-81a137c19c83",
+            "etag": "W/\"datetime'2019-02-22T09%3A03%3A27.1723419Z'\"",
+            "properties": {
+                "Category": "AlertIbiza",
+                "DisplayName": "PERF - Disk Space warning C Drive",
+                "Query": "Perf | where ObjectName == \"LogicalDisk\" and CounterName ==\"Free Megabytes\" and strlen(InstanceName) ==2 and InstanceName contains \":\" and InstanceName != \"C:\" and CounterValue <2000 or ObjectName == \"LogicalDisk\" and CounterName ==\"% Free Space\" and strlen(InstanceName) ==2 and InstanceName contains \":\" and InstanceName != \"C:\" and CounterValue < 5 | project Computer, ObjectName, CounterName, InstanceName, CounterValue, TimeGenerated",
+                "FunctionAlias": "",
+                "Version": 2
+            },
+            "name": "949297fd-5fe9-4795-afcc-81a137c19c83"
+        },
+
+
+
+        {
+            "id": "subscriptions/83582133-2d1a-4370-abe5-159a1776bd52/resourceGroups/uk3-citrix-infra-rg/providers/Microsoft.OperationalInsights/workspaces/fnc-techcomp-ws/savedSearches/9c6ffb4a-81cc-4d87-a90e-ef2f47e4bdd5",
+            "etag": "W/\"datetime'2019-02-22T12%3A04%3A26.1536544Z'\"",
+            "properties": {
+                "Category": "AlertIbiza",
+                "DisplayName": "UPD - Server Missing Security Updates",
+                "Query": "Update | where OSType!=\"Linux\" and Optional==false and Classification=~\"Security Updates\" | summarize hint.strategy=partitioned arg_max(TimeGenerated, *) by Computer,SourceComputerId,UpdateID, Title, PublishedDate | where UpdateState=~\"Needed\" and Approved!=false and datetime_diff('day',now(),PublishedDate)>30 \n| project Computer, UpdateID, Title, PublishedDate ",
+                "Version": 2
+            },
+            "name": "9c6ffb4a-81cc-4d87-a90e-ef2f47e4bdd5"
+        },
+        
+        
+        
+        
+        {
+            "id": "subscriptions/83582133-2d1a-4370-abe5-159a1776bd52/resourceGroups/uk3-citrix-infra-rg/providers/Microsoft.OperationalInsights/workspaces/fnc-techcomp-ws/savedSearches/9d7da617-1f4a-4878-81b9-007e34113dca",
+            "etag": "W/\"datetime'2019-02-22T09%3A06%3A57.0713054Z'\"",
+            "properties": {
+                "Category": "AlertIbiza",
+                "DisplayName": "PERF - Memory Use",
+                "Query": "Perf | where ObjectName == \"Memory\" and CounterName ==\"% Committed Bytes In Use\" | summarize AggregatedValue = avg(CounterValue) by Computer, bin(TimeGenerated, 15m)",
+                "FunctionAlias": "",
+                "Version": 2
+            },
+            "name": "9d7da617-1f4a-4878-81b9-007e34113dca"
+        },
+
+
+
+        {
+            "id": "subscriptions/83582133-2d1a-4370-abe5-159a1776bd52/resourceGroups/uk3-citrix-infra-rg/providers/Microsoft.OperationalInsights/workspaces/fnc-techcomp-ws/savedSearches/a76c4107-a314-46c7-a330-109c95a8e024",
+            "etag": "W/\"datetime'2019-02-22T09%3A41%3A41.6165378Z'\"",
+            "properties": {
+                "Category": "AlertIbiza",
+                "DisplayName": "SEC - Cleaned Event Logs",
+                "Query": "SecurityEvent | where EventID in (1102, 517) and EventSourceName == 'Microsoft-Windows-Eventlog' | summarize AggregatedValue = count() by Computer| project Computer, AggregatedValue ",
+                "Version": 2
+            },
+            "name": "a76c4107-a314-46c7-a330-109c95a8e024"
+        },
+
+
+        {
+            "id": "subscriptions/83582133-2d1a-4370-abe5-159a1776bd52/resourceGroups/uk3-citrix-infra-rg/providers/Microsoft.OperationalInsights/workspaces/fnc-techcomp-ws/savedSearches/aa48a1bd-35b9-44f1-bc50-62b4d51c104e",
+            "etag": "W/\"datetime'2019-02-22T08%3A49%3A55.1235663Z'\"",
+            "properties": {
+                "Category": "AlertIbiza",
+                "DisplayName": "SEC - Guest Accounts",
+                "Query": "SecurityEvent | where EventID == 4624 and TargetUserName == 'Guest' and LogonType in (10, 3) | summarize AggregatedValue = count() by Computer| project Computer, AggregatedValue ",
+                "Version": 2
+            },
+            "name": "aa48a1bd-35b9-44f1-bc50-62b4d51c104e"
+        },
+        {
+            "id": "subscriptions/83582133-2d1a-4370-abe5-159a1776bd52/resourceGroups/uk3-citrix-infra-rg/providers/Microsoft.OperationalInsights/workspaces/fnc-techcomp-ws/savedSearches/b63494e0-6672-4418-80e0-dd512c9c0ea5",
+            "etag": "W/\"datetime'2019-02-22T09%3A35%3A42.0472654Z'\"",
+            "properties": {
+                "Category": "AlertIbiza",
+                "DisplayName": "PERF - Disk Space Warning Other Drives",
+                "Query": "Perf | where ObjectName == \"LogicalDisk\" and CounterName ==\"Free Megabytes\" and strlen(InstanceName) ==2 and InstanceName contains \":\" and InstanceName != \"C:\" and CounterValue <2000 or ObjectName == \"LogicalDisk\" and CounterName ==\"% Free Space\" and strlen(InstanceName) ==2 and InstanceName contains \":\" and InstanceName != \"C:\" and CounterValue < 5 | project Computer, ObjectName, CounterName, InstanceName, CounterValue, TimeGenerated",
+                "Version": 2
+            },
+            "name": "b63494e0-6672-4418-80e0-dd512c9c0ea5"
+        },
+        
+        
+        
+        {
+            "id": "subscriptions/83582133-2d1a-4370-abe5-159a1776bd52/resourceGroups/uk3-citrix-infra-rg/providers/Microsoft.OperationalInsights/workspaces/fnc-techcomp-ws/savedSearches/bb232a57-23a7-4021-a2b1-bc892ea5b6bf",
+            "etag": "W/\"datetime'2019-02-18T12%3A00%3A31.6975669Z'\"",
+            "properties": {
+                "Category": "AlertIbiza",
+                "DisplayName": "PRO - Active Threat Detected",
+                "Query": "ProtectionStatus| where ProtectionStatus == \"Threat Detected\" and ThreatStatus ==\"Active\"",
+                "FunctionAlias": "",
+                "Version": 2
+            },
+            "name": "bb232a57-23a7-4021-a2b1-bc892ea5b6bf"
+        },
+        {
+            "id": "subscriptions/83582133-2d1a-4370-abe5-159a1776bd52/resourceGroups/uk3-citrix-infra-rg/providers/Microsoft.OperationalInsights/workspaces/fnc-techcomp-ws/savedSearches/c634a5f8-d3ed-4aa6-8027-a506a79cbf4a",
+            "etag": "W/\"datetime'2019-02-18T12%3A00%3A03.6906363Z'\"",
+            "properties": {
+                "Category": "AlertIbiza",
+                "DisplayName": "EVT - Azure Backup Job Failed",
+                "Query": "AzureDiagnostics|  where Category ==\"AzureBackupReport\" and JobOperation_s == \"Backup\" and JobFailureCode_s != \"Success\" | project TimeGenerated, JobStartDateTime_s, BackupItemUniqueId_s, JobStatus_s, JobFailureCode_s",
+                "FunctionAlias": "",
+                "Version": 2
+            },
+            "name": "c634a5f8-d3ed-4aa6-8027-a506a79cbf4a"
+        },
+
+
+
+        {
+            "id": "subscriptions/83582133-2d1a-4370-abe5-159a1776bd52/resourceGroups/uk3-citrix-infra-rg/providers/Microsoft.OperationalInsights/workspaces/fnc-techcomp-ws/savedSearches/cd744e1f-1b7e-43ca-84a4-d930c9b4ea27",
+            "etag": "W/\"datetime'2019-02-22T09%3A07%3A33.0268331Z'\"",
+            "properties": {
+                "Category": "AlertIbiza",
+                "DisplayName": "PERF - Processor utilisation",
+                "Query": "Perf | where  ObjectName == \"Processor\" and CounterName == \"% Processor Time\" and InstanceName == \"_Total\" | summarize AggregatedValue = avg(CounterValue) by Computer, bin(TimeGenerated, 15m)",
+                "FunctionAlias": "",
+                "Version": 2
+            },
+            "name": "cd744e1f-1b7e-43ca-84a4-d930c9b4ea27"
+        },
+        {
+            "id": "subscriptions/83582133-2d1a-4370-abe5-159a1776bd52/resourceGroups/uk3-citrix-infra-rg/providers/Microsoft.OperationalInsights/workspaces/fnc-techcomp-ws/savedSearches/ce2e9ade-79e2-44fd-825b-de1419ee4bd9",
+            "etag": "W/\"datetime'2019-02-18T12%3A07%3A03.8458836Z'\"",
+            "properties": {
+                "Category": "AlertIbiza",
+                "DisplayName": "ACT - Activity Log Critical",
+                "Query": "AzureActivity| where Level ==\"Critical\"| project strcat(OperationName, \" - \", ActivityStatus), Level, Resource, ResourceGroup, SubscriptionId, Category, TimeGenerated,  strcat(OperationName, \" - \", ActivityStatus)  ",
+                "Version": 2
+            },
+            "name": "ce2e9ade-79e2-44fd-825b-de1419ee4bd9"
+        },
+
+
+        {
+            "id": "subscriptions/83582133-2d1a-4370-abe5-159a1776bd52/resourceGroups/uk3-citrix-infra-rg/providers/Microsoft.OperationalInsights/workspaces/fnc-techcomp-ws/savedSearches/ce49cc1a-8959-4c38-a2dd-6d3cad49494b",
+            "etag": "W/\"datetime'2019-02-22T08%3A45%3A23.3917733Z'\"",
+            "properties": {
+                "Category": "AlertIbiza",
+                "DisplayName": "PRO - Signatures Out Of Date",
+                "Query": "ProtectionStatus| where ProtectionStatus == \"Signatures out of date\"| project Computer, ProtectionStatus, ProtectionStatusDetails",
+                "Version": 2
+            },
+            "name": "ce49cc1a-8959-4c38-a2dd-6d3cad49494b"
+        },
+       
+       
+       
+        {
+            "id": "subscriptions/83582133-2d1a-4370-abe5-159a1776bd52/resourceGroups/uk3-citrix-infra-rg/providers/Microsoft.OperationalInsights/workspaces/fnc-techcomp-ws/savedSearches/cf22203e-f278-4e6a-bb51-6a48e2b054c7",
+            "etag": "W/\"datetime'2019-02-22T12%3A00%3A39.2851966Z'\"",
+            "properties": {
+                "Category": "AlertIbiza",
+                "DisplayName": "PERF - Memory Use",
+                "Query": "Perf | where ObjectName == \"Memory\" and CounterName ==\"% Committed Bytes In Use\" | summarize AggregatedValue = avg(CounterValue) by Computer, bin(TimeGenerated, 15m)",
+                "Version": 2
+            },
+            "name": "cf22203e-f278-4e6a-bb51-6a48e2b054c7"
+        },
+
+
+        {
+            "id": "subscriptions/83582133-2d1a-4370-abe5-159a1776bd52/resourceGroups/uk3-citrix-infra-rg/providers/Microsoft.OperationalInsights/workspaces/fnc-techcomp-ws/savedSearches/df3b7d32-6b6a-4bbd-9e9a-22e5be7cbef4",
+            "etag": "W/\"datetime'2019-02-22T11%3A36%3A46.8582226Z'\"",
+            "properties": {
+                "Category": "AlertIbiza",
+                "DisplayName": "SEC - Detection High Threats",
+                "Query": "SecurityDetection | where AlertSeverity == 'High'| project Computer, AlertSeverity, AlertTitle, Description, RemediationSteps",
+                "Version": 2
+            },
+            "name": "df3b7d32-6b6a-4bbd-9e9a-22e5be7cbef4"
+        },
+
+
+
+        {
+            "id": "subscriptions/83582133-2d1a-4370-abe5-159a1776bd52/resourceGroups/uk3-citrix-infra-rg/providers/Microsoft.OperationalInsights/workspaces/fnc-techcomp-ws/savedSearches/e797a7f7-7214-40b3-97f2-790cb6ff37e3",
+            "etag": "W/\"datetime'2019-02-22T11%3A38%3A01.2943018Z'\"",
+            "properties": {
+                "Category": "AlertIbiza",
+                "DisplayName": "UPD - Servers Missing Critical Updates",
+                "Query": "Update | where OSType!=\"Linux\" and Optional==false and Classification=~\"Critical Updates\" | summarize hint.strategy=partitioned arg_max(TimeGenerated, *) by Computer,SourceComputerId,UpdateID, Title, PublishedDate | where UpdateState=~\"Needed\" and Approved!=false and datetime_diff('day',now(),PublishedDate)>30| project Computer, UpdateID, Title, PublishedDate ",
+                "Version": 2
+            },
+            "name": "e797a7f7-7214-40b3-97f2-790cb6ff37e3"
+        },
+
+        
+        {
+            "id": "subscriptions/83582133-2d1a-4370-abe5-159a1776bd52/resourceGroups/uk3-citrix-infra-rg/providers/Microsoft.OperationalInsights/workspaces/fnc-techcomp-ws/savedSearches/fdda0a18-1a92-428e-a355-3c13e370cdf5",
+            "etag": "W/\"datetime'2019-02-22T11%3A59%3A21.5803561Z'\"",
+            "properties": {
+                "Category": "AlertIbiza",
+                "DisplayName": "PERF - Disk Space warning C Drive",
+                "Query": "Perf | where ObjectName == \"LogicalDisk\" and CounterName ==\"Free Megabytes\" and strlen(InstanceName) ==2 and InstanceName contains \":\" and InstanceName != \"C:\" and CounterValue <2000 or ObjectName == \"LogicalDisk\" and CounterName ==\"% Free Space\" and strlen(InstanceName) ==2 and InstanceName contains \":\" and InstanceName != \"C:\" and CounterValue < 5 | project Computer, ObjectName, CounterName, InstanceName, CounterValue, TimeGenerated",
+                "Version": 2
+            },
+            "name": "fdda0a18-1a92-428e-a355-3c13e370cdf5"
+        },
+        {
+            "id": "subscriptions/83582133-2d1a-4370-abe5-159a1776bd52/resourceGroups/uk3-citrix-infra-rg/providers/Microsoft.OperationalInsights/workspaces/fnc-techcomp-ws/savedSearches/ffdf5384-813a-4a14-b606-69ea038e21ea",
+            "etag": "W/\"datetime'2019-02-22T11%3A40%3A33.6282647Z'\"",
+            "properties": {
+                "Category": "AlertIbiza",
+                "DisplayName": "UPD - Server Missing Security Updates",
+                "Query": "Update | where OSType!=\"Linux\" and Optional==false and Classification=~\"Security Updates\" | summarize hint.strategy=partitioned arg_max(TimeGenerated, *) by Computer,SourceComputerId,UpdateID, Title, PublishedDate | where UpdateState=~\"Needed\" and Approved!=false and datetime_diff('day',now(),PublishedDate)>30 \n| project Computer, UpdateID, Title, PublishedDate ",
+                "Version": 2
+            },
+            "name": "ffdf5384-813a-4a14-b606-69ea038e21ea"
+        }
+    ]
+}
