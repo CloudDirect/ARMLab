@@ -180,7 +180,7 @@
         "availabilitysetID": "[resourceId(parameters('vmResourceGroup'), 'Microsoft.Compute/availabilitySets/', parameters('vmResourceGroup'))]",
         "subnetRef": "[concat(variables('vnetID'), '/subnets/', parameters('subnetName'))]",
         "vmName": "[concat(parameters('vmPrefix'), '-')]",
-        "storageAccountType": "Standard_LRS",
+        "storageAccountType": "Premium_LRS",
         "storageAccountName": "[toLower (concat('diaglogs', uniquestring(resourceGroup().id)))]"
     },
     "resources": [
