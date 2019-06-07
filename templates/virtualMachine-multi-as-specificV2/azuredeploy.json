@@ -262,12 +262,6 @@
                         }
                     ]
                 },
-                "diagnosticsProfile": {
-                    "bootDiagnostics": {
-                        "enabled": false,
-                        "storageUri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName')), '2016-01-01').primaryEndpoints.blob)]"
-                    }
-                },
                 "availabilitySet": {
                     "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('avset'))]"
                 }
