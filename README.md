@@ -1,6 +1,6 @@
 # ARMLab
 
-Working area for ARM template development.
+ARM template repository.
 
 The README.md file in each folder details how to use the templates.
 
@@ -12,3 +12,4 @@ The README.md file in each folder details how to use the templates.
 - Steve
 - Peter
 - Paul
+- Jeff
